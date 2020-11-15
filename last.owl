@@ -1,0 +1,398 @@
+@prefix : <http://travelling-data.org/> .
+@prefix td: <http://travelling-data.org/> .
+@prefix dbo: <http://dbpedia.org/ontology/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@base <http://travelling-data.org/> .
+
+<http://travelling-data.org/> rdf:type owl:Ontology .
+
+#################################################################
+#    Object Properties
+#################################################################
+
+###  http://dbpedia.org/ontology/isPartOf
+dbo:isPartOf rdf:type owl:ObjectProperty ;
+             rdfs:subPropertyOf owl:topObjectProperty .
+
+
+###  http://travelling-data.org/AdviceFor
+td:AdviceFor rdf:type owl:ObjectProperty ;
+             rdfs:subPropertyOf owl:topObjectProperty ;
+             rdf:type owl:FunctionalProperty ,
+                      owl:AsymmetricProperty ,
+                      owl:IrreflexiveProperty ;
+             rdfs:domain td:SpecificTravellingAdvice ;
+             rdfs:range dbo:country .
+
+
+###  http://travelling-data.org/AdviceFrom
+td:AdviceFrom rdf:type owl:ObjectProperty ;
+              rdfs:subPropertyOf owl:topObjectProperty ;
+              rdf:type owl:FunctionalProperty ,
+                       owl:AsymmetricProperty ,
+                       owl:IrreflexiveProperty ;
+              rdfs:domain td:SpecificTravellingAdvice ;
+              rdfs:range dbo:country .
+
+
+###  http://travelling-data.org/CanVisit
+td:CanVisit rdf:type owl:ObjectProperty ;
+            rdfs:subPropertyOf owl:topObjectProperty ;
+            rdf:type owl:IrreflexiveProperty ;
+            rdfs:domain dbo:country ;
+            rdfs:range dbo:country .
+
+
+###  http://travelling-data.org/Destination
+td:Destination rdf:type owl:ObjectProperty ;
+               rdfs:subPropertyOf owl:topObjectProperty ;
+               rdf:type owl:FunctionalProperty ,
+                        owl:AsymmetricProperty ,
+                        owl:IrreflexiveProperty ;
+               rdfs:domain td:Connection ;
+               rdfs:range dbo:city .
+
+
+###  http://travelling-data.org/HasConnection
+td:HasConnection rdf:type owl:ObjectProperty ;
+                 rdfs:subPropertyOf owl:topObjectProperty ;
+                 rdf:type owl:AsymmetricProperty ,
+                          owl:IrreflexiveProperty ;
+                 rdfs:domain dbo:city ;
+                 rdfs:range td:Connection .
+
+
+###  http://travelling-data.org/HasSpecificTravellingAdvice
+td:HasSpecificTravellingAdvice rdf:type owl:ObjectProperty ;
+                               rdfs:subPropertyOf owl:topObjectProperty ;
+                               rdf:type owl:AsymmetricProperty ,
+                                        owl:IrreflexiveProperty ;
+                               rdfs:domain dbo:country ;
+                               rdfs:range td:SpecificTravellingAdvice .
+
+
+###  http://travelling-data.org/LivesIn
+td:LivesIn rdf:type owl:ObjectProperty ;
+           rdfs:subPropertyOf owl:topObjectProperty ;
+           rdf:type owl:FunctionalProperty ,
+                    owl:AsymmetricProperty ,
+                    owl:IrreflexiveProperty ;
+           rdfs:domain foaf:Person ;
+           rdfs:range dbo:country .
+
+
+###  http://travelling-data.org/NeedTestToEnter
+td:NeedTestToEnter rdf:type owl:ObjectProperty ;
+                   rdfs:subPropertyOf owl:topObjectProperty ;
+                   rdf:type owl:AsymmetricProperty ,
+                            owl:IrreflexiveProperty ;
+                   rdfs:domain dbo:country ;
+                   rdfs:range dbo:country .
+
+
+###  http://travelling-data.org/NeedsVisaFor
+td:NeedsVisaFor rdf:type owl:ObjectProperty ;
+                rdfs:subPropertyOf owl:topObjectProperty ;
+                rdf:type owl:IrreflexiveProperty ;
+                rdfs:domain dbo:country ;
+                rdfs:range dbo:country .
+
+
+###  http://travelling-data.org/Organizes
+td:Organizes rdf:type owl:ObjectProperty ;
+             rdfs:subPropertyOf owl:topObjectProperty ;
+             rdf:type owl:FunctionalProperty ,
+                      owl:AsymmetricProperty ,
+                      owl:IrreflexiveProperty ;
+             rdfs:domain td:Connection ;
+             rdfs:range foaf:Organization .
+
+
+###  http://travelling-data.org/SubscribesTo
+td:SubscribesTo rdf:type owl:ObjectProperty ;
+                rdfs:subPropertyOf owl:topObjectProperty ;
+                rdf:type owl:AsymmetricProperty ,
+                         owl:IrreflexiveProperty ;
+                rdfs:domain foaf:Person ;
+                rdfs:range dbo:country .
+
+
+###  http://travelling-data.org/partOfContinent
+td:partOfContinent rdf:type owl:ObjectProperty ;
+                   rdfs:subPropertyOf dbo:isPartOf ;
+                   rdf:type owl:FunctionalProperty ,
+                            owl:AsymmetricProperty ,
+                            owl:IrreflexiveProperty ;
+                   rdfs:domain dbo:city ,
+                               dbo:country ,
+                               dbo:region ;
+                   rdfs:range dbo:Continent .
+
+
+###  http://travelling-data.org/partOfCountry
+td:partOfCountry rdf:type owl:ObjectProperty ;
+                 rdfs:subPropertyOf dbo:isPartOf ;
+                 rdf:type owl:FunctionalProperty ,
+                          owl:AsymmetricProperty ,
+                          owl:IrreflexiveProperty ;
+                 rdfs:domain dbo:city ,
+                             dbo:region ;
+                 rdfs:range dbo:country .
+
+
+###  http://travelling-data.org/partOfRegion
+td:partOfRegion rdf:type owl:ObjectProperty ;
+                rdfs:subPropertyOf dbo:isPartOf ;
+                rdf:type owl:FunctionalProperty ,
+                         owl:AsymmetricProperty ,
+                         owl:IrreflexiveProperty ;
+                rdfs:domain dbo:city ;
+                rdfs:range dbo:region .
+
+
+#################################################################
+#    Data properties
+#################################################################
+
+###  http://dbpedia.org/ontology/flag
+dbo:flag rdf:type owl:DatatypeProperty ;
+         rdfs:subPropertyOf owl:topDataProperty ;
+         rdf:type owl:FunctionalProperty ;
+         rdfs:domain dbo:country ;
+         rdfs:range xsd:string .
+
+
+###  http://travelling-data.org/Advice
+td:Advice rdf:type owl:DatatypeProperty ;
+          rdfs:subPropertyOf owl:topDataProperty ;
+          rdfs:domain td:SpecificTravellingAdvice ;
+          rdfs:range xsd:string .
+
+
+###  http://travelling-data.org/DeathsNumber
+td:DeathsNumber rdf:type owl:DatatypeProperty ;
+                rdfs:subPropertyOf owl:topDataProperty ;
+                rdf:type owl:FunctionalProperty ;
+                rdfs:domain td:DerivablePlace ;
+                rdfs:range xsd:integer .
+
+
+###  http://travelling-data.org/Duration
+td:Duration rdf:type owl:DatatypeProperty ;
+            rdfs:subPropertyOf owl:topDataProperty ;
+            rdf:type owl:FunctionalProperty ;
+            rdfs:domain td:Connection ;
+            rdfs:range xsd:long .
+
+
+###  http://travelling-data.org/InfectedNumber
+td:InfectedNumber rdf:type owl:DatatypeProperty ;
+                  rdfs:subPropertyOf owl:topDataProperty ;
+                  rdf:type owl:FunctionalProperty ;
+                  rdfs:domain td:DerivablePlace ;
+                  rdfs:range xsd:integer .
+
+
+###  http://travelling-data.org/Name
+td:Name rdf:type owl:DatatypeProperty ;
+        rdfs:subPropertyOf owl:topDataProperty ;
+        rdfs:domain td:DerivablePlace ;
+        rdfs:range xsd:string .
+
+
+###  http://travelling-data.org/NeedTest
+td:NeedTest rdf:type owl:DatatypeProperty ;
+            rdfs:subPropertyOf owl:topDataProperty ;
+            rdf:type owl:FunctionalProperty ;
+            rdfs:domain td:SpecificTravellingAdvice ;
+            rdfs:range xsd:boolean .
+
+
+###  http://travelling-data.org/NumberOfCitizens
+td:NumberOfCitizens rdf:type owl:DatatypeProperty ;
+                    rdfs:subPropertyOf owl:topDataProperty ;
+                    rdf:type owl:FunctionalProperty ;
+                    rdfs:domain td:DerivablePlace ;
+                    rdfs:range xsd:integer .
+
+
+###  http://travelling-data.org/PostalCode
+td:PostalCode rdf:type owl:DatatypeProperty ;
+              rdfs:subPropertyOf owl:topDataProperty ;
+              rdfs:domain dbo:city ;
+              rdfs:range xsd:string .
+
+
+###  http://travelling-data.org/Price
+td:Price rdf:type owl:DatatypeProperty ;
+         rdfs:subPropertyOf owl:topDataProperty ;
+         rdf:type owl:FunctionalProperty ;
+         rdfs:domain td:Connection ;
+         rdfs:range owl:real .
+
+
+###  http://travelling-data.org/ReproductionNumber
+td:ReproductionNumber rdf:type owl:DatatypeProperty ;
+                      rdfs:subPropertyOf owl:topDataProperty ;
+                      rdf:type owl:FunctionalProperty ;
+                      rdfs:domain td:DerivablePlace ;
+                      rdfs:range owl:rational .
+
+
+###  http://travelling-data.org/Restriction
+td:Restriction rdf:type owl:DatatypeProperty ;
+               rdfs:subPropertyOf owl:topDataProperty ;
+               rdfs:domain td:DerivablePlace ;
+               rdfs:range xsd:string .
+
+
+###  http://travelling-data.org/TotalNumberInfected
+td:TotalNumberInfected rdf:type owl:DatatypeProperty ;
+                       rdfs:subPropertyOf owl:topDataProperty ;
+                       rdf:type owl:FunctionalProperty ;
+                       rdfs:domain td:DerivablePlace ;
+                       rdfs:range xsd:integer .
+
+
+###  http://travelling-data.org/UserCanVisit
+td:UserCanVisit rdf:type owl:DatatypeProperty ;
+                rdfs:subPropertyOf owl:topDataProperty ;
+                rdf:type owl:FunctionalProperty ;
+                rdfs:domain td:SpecificTravellingAdvice ;
+                rdfs:range xsd:boolean .
+
+
+###  http://travelling-data.org/from
+td:from rdf:type owl:DatatypeProperty ;
+        rdfs:subPropertyOf owl:topDataProperty ;
+        rdf:type owl:FunctionalProperty ;
+        rdfs:domain td:Connection ;
+        rdfs:range xsd:string .
+
+
+###  http://travelling-data.org/to
+td:to rdf:type owl:DatatypeProperty ;
+      rdfs:subPropertyOf owl:topDataProperty ;
+      rdf:type owl:FunctionalProperty ;
+      rdfs:domain td:Connection ;
+      rdfs:range xsd:string .
+
+
+###  http://travelling-data.org/updateTime
+td:updateTime rdf:type owl:DatatypeProperty ;
+              rdfs:subPropertyOf owl:topDataProperty ;
+              rdf:type owl:FunctionalProperty ;
+              rdfs:domain dbo:city ,
+                          td:DerivablePlace ;
+              rdfs:range xsd:dateTimeStamp .
+
+
+###  http://xmlns.com/foaf/0.1/firstName
+foaf:firstName rdf:type owl:DatatypeProperty ;
+               rdfs:subPropertyOf owl:topDataProperty ;
+               rdf:type owl:FunctionalProperty ;
+               rdfs:domain foaf:Person ;
+               rdfs:range xsd:string .
+
+
+###  http://xmlns.com/foaf/0.1/homepage
+foaf:homepage rdf:type owl:DatatypeProperty ;
+              rdfs:subPropertyOf owl:topDataProperty ;
+              rdf:type owl:FunctionalProperty ;
+              rdfs:domain foaf:Organization ;
+              rdfs:range xsd:string .
+
+
+###  http://xmlns.com/foaf/0.1/lastName
+foaf:lastName rdf:type owl:DatatypeProperty ;
+              rdfs:subPropertyOf owl:topDataProperty ;
+              rdf:type owl:FunctionalProperty ;
+              rdfs:domain foaf:Person ;
+              rdfs:range xsd:string .
+
+
+###  http://xmlns.com/foaf/0.1/mbox
+foaf:mbox rdf:type owl:DatatypeProperty ;
+          rdfs:subPropertyOf owl:topDataProperty ;
+          rdf:type owl:FunctionalProperty ;
+          rdfs:domain foaf:Person ;
+          rdfs:range xsd:string .
+
+
+#################################################################
+#    Classes
+#################################################################
+
+###  http://dbpedia.org/ontology/Continent
+dbo:Continent rdf:type owl:Class ;
+              rdfs:subClassOf td:DerivablePlace .
+
+
+###  http://dbpedia.org/ontology/city
+dbo:city rdf:type owl:Class ;
+         rdfs:subClassOf owl:Thing .
+
+
+###  http://dbpedia.org/ontology/country
+dbo:country rdf:type owl:Class ;
+            rdfs:subClassOf td:DerivablePlace .
+
+
+###  http://dbpedia.org/ontology/region
+dbo:region rdf:type owl:Class ;
+           rdfs:subClassOf td:DerivablePlace .
+
+
+###  http://travelling-data.org/AirplaneConnection
+td:AirplaneConnection rdf:type owl:Class ;
+                      rdfs:subClassOf td:Connection ;
+                      owl:disjointWith td:TrainConnection .
+
+
+###  http://travelling-data.org/BusConnection
+td:BusConnection rdf:type owl:Class ;
+                 rdfs:subClassOf td:Connection .
+
+
+###  http://travelling-data.org/Connection
+td:Connection rdf:type owl:Class ;
+              rdfs:subClassOf owl:Thing .
+
+
+###  http://travelling-data.org/DerivablePlace
+td:DerivablePlace rdf:type owl:Class ;
+                  rdfs:subClassOf owl:Thing .
+
+
+###  http://travelling-data.org/SpecificTravellingAdvice
+td:SpecificTravellingAdvice rdf:type owl:Class ;
+                            rdfs:subClassOf owl:Thing .
+
+
+###  http://travelling-data.org/TrainConnection
+td:TrainConnection rdf:type owl:Class ;
+                   rdfs:subClassOf td:Connection .
+
+
+###  http://xmlns.com/foaf/0.1/Agent
+foaf:Agent rdf:type owl:Class ;
+           rdfs:subClassOf owl:Thing .
+
+
+###  http://xmlns.com/foaf/0.1/Organization
+foaf:Organization rdf:type owl:Class ;
+                  rdfs:subClassOf foaf:Agent ;
+                  owl:disjointWith foaf:Person .
+
+
+###  http://xmlns.com/foaf/0.1/Person
+foaf:Person rdf:type owl:Class ;
+            rdfs:subClassOf foaf:Agent .
+
+
+###  Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi
