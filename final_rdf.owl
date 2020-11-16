@@ -303,6 +303,28 @@
     
 
 
+    <!-- http://travelling-data.org/NumberOfDeaths -->
+
+    <owl:DatatypeProperty rdf:about="http://travelling-data.org/NumberOfDeaths">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://dbpedia.org/ontology/city"/>
+        <rdfs:domain rdf:resource="http://travelling-data.org/DerivablePlace"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#int"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://travelling-data.org/NumberOfInfected -->
+
+    <owl:DatatypeProperty rdf:about="http://travelling-data.org/NumberOfInfected">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://dbpedia.org/ontology/city"/>
+        <rdfs:domain rdf:resource="http://travelling-data.org/DerivablePlace"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#int"/>
+    </owl:DatatypeProperty>
+    
+
+
     <!-- http://travelling-data.org/PersonCanVisit -->
 
     <owl:DatatypeProperty rdf:about="http://travelling-data.org/PersonCanVisit">
@@ -352,7 +374,9 @@
     <owl:DatatypeProperty rdf:about="http://travelling-data.org/ReproductionNumber">
         <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
         <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+        <rdfs:domain rdf:resource="http://dbpedia.org/ontology/city"/>
         <rdfs:domain rdf:resource="http://travelling-data.org/CoronaReading"/>
+        <rdfs:domain rdf:resource="http://travelling-data.org/DerivablePlace"/>
         <rdfs:range rdf:resource="http://www.w3.org/2002/07/owl#rational"/>
     </owl:DatatypeProperty>
     
@@ -426,6 +450,7 @@
     <!-- http://www.w3.org/ns/prov#generatedAtTime -->
 
     <owl:DatatypeProperty rdf:about="http://www.w3.org/ns/prov#generatedAtTime">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
         <rdfs:domain rdf:resource="http://www.w3.org/ns/prov#Entity"/>
         <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#dateTime"/>
     </owl:DatatypeProperty>
@@ -510,7 +535,7 @@
     <!-- http://dbpedia.org/ontology/city -->
 
     <owl:Class rdf:about="http://dbpedia.org/ontology/city">
-        <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+        <rdfs:subClassOf rdf:resource="http://www.w3.org/ns/prov#Entity"/>
     </owl:Class>
     
 
@@ -575,7 +600,7 @@
     <!-- http://travelling-data.org/DerivablePlace -->
 
     <owl:Class rdf:about="http://travelling-data.org/DerivablePlace">
-        <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+        <rdfs:subClassOf rdf:resource="http://www.w3.org/ns/prov#Entity"/>
     </owl:Class>
     
 
