@@ -3,8 +3,8 @@ Project for the Open Information System course in the first year of the master C
 
 ## Manual
 
-This system uses docker and docker-compose to run an H2 database and a SPARQL endpoint on top of this database using the [Ontop Protégé plugin](https://ontop-vkg.org/).
-It consists of two docker containers, one containing the database and one containing the Ontop application.
+This system uses docker and docker-compose to run a [H2](https://www.h2database.com/html/main.html) database and a SPARQL endpoint on top of this database using the [Ontop Protégé plugin](https://ontop-vkg.org/).
+It consists of two docker containers, one containing the H2 database and one containing the Ontop application.
 
 ### Installation steps:
 
