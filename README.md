@@ -20,15 +20,9 @@ It consists of two docker containers, one containing the H2 database and one con
 First open a terminal and navigate to the root folder.
 Then call following command:
 
-* Ubuntu:
+* Ubuntu/Windows:
         ```
         docker-compose up --build
-        ```
-
-* Windows:
-        ```
-        docker-compose up --build
-        ```
 
 The ```
     --build
@@ -42,6 +36,7 @@ To shut the server down press ctrl-c in the terminal running it and then call:
 * Ubuntu/Windows:
         ```
         docker-compose down
+        ```
 
 If you want to make sure no left-over containers are running in the background call:
 
