@@ -1,9 +1,9 @@
 # Open Information Systems Project: group 1: Travelling data and covid-19
-Project for the Open Information System course in the first year of the master Computer science at the VUB.
+Final project for the Open Information System course in the first year of the Computer science master at the VUB.
 
 ## Manual
 
-This system uses docker and docker-compose to run a [H2](https://www.h2database.com/html/main.html) database and a SPARQL endpoint on top of this database using the [Ontop Protégé plugin](https://ontop-vkg.org/).
+The system uses docker and docker-compose to run a [H2](https://www.h2database.com/html/main.html) database and a SPARQL endpoint on top of the database using the [Ontop Protégé plugin](https://ontop-vkg.org/).
 It consists of two docker containers, one containing the H2 database and one containing the Ontop application.
 
 ### Installation steps:
