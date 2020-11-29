@@ -1,5 +1,5 @@
 # Open Information Systems Project: group 1: Travelling data and covid-19
-Final project for the Open Information System course in the first year of the Computer science master at the VUB.
+Final project for the Open Information System course in the first year of the Computer science master at the [VUB](www.vub.be).
 
 ## Manual
 
