@@ -8,24 +8,24 @@ It consists of two docker containers, one containing the H2 database and one con
 
 ### Installation steps:
 
-- install docker:
+- Install docker:
 
   - ubuntu: https://docs.docker.com/install/linux/docker-ce/ubuntu/
   - windows: https://docs.docker.com/docker-for-windows/install/
 
-- install docker-compose: https://docs.docker.com/compose/install/
+- Install docker-compose: https://docs.docker.com/compose/install/
 
 ### Running:
 
 First open a terminal and navigate to the root folder.
 Then call following command:
 
-* ubuntu:
+* Ubuntu:
         ```
         docker-compose up --build
         ```
 
-* windows:
+* Windows:
         ```
         docker-compose up --build
         ```
@@ -39,24 +39,13 @@ If a permission error occurs try running the command with administrator privileg
 
 To shut the server down press ctrl-c in the terminal running it and then call:
 
-* ubuntu:
+* Ubuntu/Windows:
         ```
         docker-compose down
-        ```
-
-* windows:
-        ```
-        docker-compose down
-        ```
 
 If you want to make sure no left-over containers are running in the background call:
 
-* ubuntu:
-        ```
-        docker system prune
-        ```
-
-* windows:
+* Ubuntu/Windows:
         ```
         docker system prune
         ```
