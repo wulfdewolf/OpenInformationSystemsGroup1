@@ -23,7 +23,7 @@ Then call following command:
 * Ubuntu/Windows:
         ```
         docker-compose up --build
-
+        ```
 The ```
     --build
       ``` parameter is only required when running the system for the first time, at later occasions this parameter can be omitted.
