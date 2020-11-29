@@ -1,5 +1,5 @@
-# OpenInformationSystemsProject
-Project for the Open Information System course in the first year of the master Computer science at the VUB
+# Open Information Systems Project: group 1: Travelling data and covid-19
+Project for the Open Information System course in the first year of the master Computer science at the VUB.
 
 ## Manual
 
