@@ -2,13 +2,12 @@ version: "3.1"
 services:
 
   h2:
-    build: ./h2
+    build: ./database
     container_name: h2
     ports:
       - "8082:8082"
-      - "9082:9082"    
     volumes:
-      - ./h2/data:/usr/lib/h2
+      - ./database/data:/usr/lib/h2
 
 
   ontop:

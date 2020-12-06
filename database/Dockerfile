@@ -8,7 +8,6 @@ WORKDIR /var/lib/h2
 COPY h2.sh .
 
 # Ports
-EXPOSE 9082
 EXPOSE 8082
 
 # H2 version

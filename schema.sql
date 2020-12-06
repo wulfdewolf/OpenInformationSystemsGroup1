@@ -1,127 +1,143 @@
 CREATE TABLE City (
-	cityName TEXT NOT NULL,
-	postalCode TEXT NOT NULL,
+	cityName VARCHAR(40) NOT NULL,
+	postalCode VARCHAR(40) NOT NULL,
 	numberOfCitizens INT,
-	restrictions TEXT,
-    partOf TEXT,
+    partOf VARCHAR(40),
+    FOREIGN KEY(cityName) REFERENCES Restrictions(RestrictionsName),
     FOREIGN KEY(partOf) REFERENCES Region(regionName),
 	PRIMARY KEY (cityName)
 );
 
+CREATE TABLE CityRestrictions (
+    cityName VARCHAR(40),
+    restriction VARCHAR(40),
+    FOREIGN KEY(cityName) REFERENCES Country(cityName)
+    PRIMARY KEY(restriction, cityName)
+);
+
 CREATE TABLE Country(
-    flag TEXT,
-    advice TEXT,
-    countryName TEXT,
-    partOf TEXT,
-    FOREIGN KEY (countryName) REFERENCES DerivablePlace(countryName),
+    countryName VARCHAR(40),
+    partOf VARCHAR(40),
     FOREIGN KEY(partOf) REFERENCES Continent(continentName),
     PRIMARY KEY(countryName)
 );
 
+CREATE TABLE CountryAdvice (
+    countryName VARCHAR(40),
+    advice VARCHAR(40),
+    FOREIGN KEY(countryName) REFERENCES Country(countryName)
+    PRIMARY KEY(advice, countryName)
+);
+
+CREATE TABLE CountryRestrictions (
+    countryName VARCHAR(40),
+    restriction VARCHAR(40),
+    FOREIGN KEY(countryName) REFERENCES Country(countryName)
+    PRIMARY KEY(restriction, countryName)
+);
+
 CREATE TABLE NeedsVisaFor(
-    origin TEXT,
-    destination TEXT,
+    origin VARCHAR(40),
+    destination VARCHAR(40),
     PRIMARY KEY(origin, destination)
 );
 
 CREATE TABLE canVisit(
-    origin TEXT,
-    destination TEXT,
+    origin VARCHAR(40),
+    destination VARCHAR(40),
     PRIMARY KEY(origin, destination)
 );
 
 CREATE TABLE needTest(
-    origin TEXT,
-    destination TEXT,
+    origin VARCHAR(40),
+    destination VARCHAR(40),
     PRIMARY KEY(origin, destination)
 );
 
 CREATE TABLE Region(
-    regionName TEXT,
-    partOf TEXT,
-    FOREIGN KEY(regionName) REFERENCES DerivablePlace(placeName),
+    regionName VARCHAR(40),
+    partOf VARCHAR(40),
     FOREIGN KEY(partOf) REFERENCES Country(countryName),
     PRIMARY KEY(regionName)
 );
 
-CREATE TABLE Continent(
-    continentName TEXT,
-    FOREIGN KEY(continentName) REFERENCES DerivablePlace(placeName),
+CREATE TABLE RegionRestrictions (
+    regionName VARCHAR(40),
+    restriction VARCHAR(40),
+    FOREIGN KEY(regionName) REFERENCES Region(regionName)
+    PRIMARY KEY(restriction, regionName)
+);
+
+CREATE TABLE Continent (
+    continentName VARCHAR(40),
     PRIMARY KEY(continentName)
 );
 
-CREATE TABLE Organization (
-	homepage TEXT,
-	organizationName TEXT,
-	PRIMARY KEY (homepage)
+CREATE TABLE ContinentRestrictions (
+    continentName VARCHAR(40),
+    restriction VARCHAR(40),
+    FOREIGN KEY(continentName) REFERENCES Continent(continentName)
+    PRIMARY KEY(restriction, continentName)
 );
 
 CREATE TABLE DataOrganization (
-    homepage TEXT,
-    FOREIGN KEY(homepage) REFERENCES Organization(homepage),
+    homepage VARCHAR(40),
     PRIMARY KEY(homepage)
 );
 
 CREATE TABLE TravellingOrganization(
-    homepage TEXT,
-    FOREIGN KEY(homepage) REFERENCES Organization(homepage),
+    homepage VARCHAR(40),
     PRIMARY KEY(homepage)
 );
 
 CREATE TABLE Connection (
 	duration TIME,
 	price INT,
-    toCity TEXT,
-    fromCity TEXT,
-    providedBy TEXT,
-    connectionType TEXT,
+    toCity VARCHAR(40),
+    fromCity VARCHAR(40),
+    providedBy VARCHAR(40),
+    connectionType VARCHAR(40),
     FOREIGN KEY (fromCity, toCity) REFERENCES City(cityName, cityName),
     FOREIGN KEY(providedBy) REFERENCES TravellingOrganization(homepage),
     PRIMARY KEY(fromCity, toCity, connectionType)
 );
 
 CREATE TABLE TrainConnection(
-    fromCity TEXT,
-    toCity TEXT,
+    fromCity VARCHAR(40),
+    toCity VARCHAR(40),
     FOREIGN KEY(fromCity, toCity) REFERENCES Connection(fromCity, toCity),
     PRIMARY KEY(fromCity, toCity)
 );
 
 CREATE TABLE AirplaneConnection(
-    fromCity TEXT,
-    toCity TEXT,
+    fromCity VARCHAR(40),
+    toCity VARCHAR(40),
     FOREIGN KEY(fromCity, toCity) REFERENCES Connection(fromCity, toCity),
     PRIMARY KEY(fromCity, toCity)
 );
 
 CREATE TABLE BusConnection(
-    fromCity TEXT,
-    toCity TEXT,
+    fromCity VARCHAR(40),
+    toCity VARCHAR(40),
     FOREIGN KEY(fromCity, toCity) REFERENCES Connection(fromCity, toCity),
     PRIMARY KEY(fromCity, toCity)
 );
 
 CREATE TABLE User (
-	email TEXT,
-	firstName TEXT,
-	lastName TEXT,
-    livesIn TEXT,
+	email VARCHAR(40),
+	firstName VARCHAR(40),
+	lastName VARCHAR(40),
+    livesIn VARCHAR(40),
     FOREIGN KEY(livesIn) REFERENCES Country(countryName),
 	PRIMARY KEY (email)
 );
 
-CREATE TABLE Subscribers(
-    user TEXT,
-    country TEXT,
+CREATE TABLE Subscribers (
+    user VARCHAR(40),
+    country VARCHAR(40),
     FOREIGN KEY(user) REFERENCES User(email),
     FOREIGN KEY(country) REFERENCES Country(countryName),
     PRIMARY KEY(user, country)
-);
-
-CREATE TABLE DerivablePlace (
-    placeName TEXT,
-    restrictions TEXT,
-    PRIMARY KEY(placeName)
 );
 
 CREATE TABLE CoronaReading(
@@ -129,17 +145,45 @@ CREATE TABLE CoronaReading(
     numberOfNewDeaths INT,
     reproductionNumber INT,
     referenceTime TIME,
-    city TEXT,
-    providedBy TEXT,
+    city VARCHAR(40),
+    providedBy VARCHAR(40),
     FOREIGN KEY (city) REFERENCES City(cityName), 
     FOREIGN KEY(providedBy) REFERENCES DataOrganization(homepage),
     PRIMARY KEY (referenceTime, city)
 );
 
 CREATE TABLE SpecificTravellingAdvice(
-    advice TEXT, 
-    countryFrom TEXT,
-    countryFor TEXT,
+    advice VARCHAR(40), 
+    countryFrom VARCHAR(40),
+    countryFor VARCHAR(40),
     FOREIGN KEY(countryFrom, countryFor) REFERENCES Country(countryName, countryName),
-    PRIMARY KEY(countryFrom, countryFor)
+    PRIMARY KEY(countryFrom, countryFor, advice)
 );
+
+/* 
+*   INSTANCES
+*/
+
+/* 
+*   Continent
+*/
+INSERT INTO Continent VALUES ("North America");
+INSERT INTO Continent VALUES ("South America");
+INSERT INTO Continent VALUES ("Europe");
+INSERT INTO Continent VALUES ("Asia");
+INSERT INTO Continent VALUES ("Oceania");
+INSERT INTO Continent VALUES ("Africa");
+
+/*
+*   Country
+*/
+
+
+/*
+*   Region
+*/
+
+
+/*
+*   City
+*/
