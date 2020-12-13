@@ -5,7 +5,7 @@ FROM ontop/ontop-endpoint
 WORKDIR /opt/ontop
 
 # Config and ontology files
-COPY input/university-complete.ttl input/university-complete.obda input/university-complete.docker.properties input/ 
+COPY ./ontology/ontology.owl ./ontology/ontology.obda ./ontology/ontology.properties input/ 
 
 # Ports
 EXPOSE 8080
@@ -19,8 +19,8 @@ ADD "https://repo1.maven.org/maven2/com/h2database/h2/${H2_VERSION}/h2-${H2_VERS
 # Entry point
 ENTRYPOINT java -cp ./lib/*:./jdbc/* -Dlogback.configurationFile=file:./log/logback.xml \
         it.unibz.inf.ontop.cli.Ontop endpoint \
-        --ontology=input/university-complete.ttl \
-        --mapping=input/university-complete.obda \
-        --properties=input/university-complete.docker.properties \
+        --ontology=input/ontology.owl \
+        --mapping=input/ontology.obda \
+        --properties=input/ontology.properties \
         --cors-allowed-origins=http://yasgui.org 
      

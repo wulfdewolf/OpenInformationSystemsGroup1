@@ -17,43 +17,13 @@ CREATE TABLE NeedTest (
 );
 
 CREATE TABLE DataOrganization (
-    homepage VARCHAR(40),
+    homepage VARCHAR(160),
     PRIMARY KEY(homepage)
 );
 
 CREATE TABLE TravellingOrganization(
-    homepage VARCHAR(40),
+    homepage VARCHAR(160),
     PRIMARY KEY(homepage)
-);
-
-CREATE TABLE TrainConnection(
-    fromCity VARCHAR(40),
-    toCity VARCHAR(40),
-    duration TIME,
-	price INT,
-    providedBy VARCHAR(40),
-    FOREIGN KEY(providedBy) REFERENCES TravellingOrganization(homepage),
-    PRIMARY KEY(fromCity, toCity)
-);
-
-CREATE TABLE AirplaneConnection(
-    fromCity VARCHAR(40),
-    toCity VARCHAR(40),
-    duration TIME,
-	price INT,
-    providedBy VARCHAR(40),
-    FOREIGN KEY(providedBy) REFERENCES TravellingOrganization(homepage),
-    PRIMARY KEY(fromCity, toCity)
-);
-
-CREATE TABLE BusConnection(
-    fromCity VARCHAR(40),
-    toCity VARCHAR(40),
-    duration TIME,
-	price INT,
-    providedBy VARCHAR(40),
-    FOREIGN KEY(providedBy) REFERENCES TravellingOrganization(homepage),
-    PRIMARY KEY(fromCity, toCity)
 );
 
 CREATE TABLE Continent (
@@ -62,10 +32,10 @@ CREATE TABLE Continent (
 );
 
 CREATE TABLE ContinentRestrictions (
-    continentName VARCHAR(40),
+    forContinent VARCHAR(40),
     restriction VARCHAR(100),
-    FOREIGN KEY(continentName) REFERENCES Continent(continentName)
-    PRIMARY KEY(restriction, continentName)
+    FOREIGN KEY(forContinent) REFERENCES Continent(continentName),
+    PRIMARY KEY(restriction, forContinent)
 );
 
 CREATE TABLE Country(
@@ -76,17 +46,17 @@ CREATE TABLE Country(
 );
 
 CREATE TABLE CountryAdvice (
-    countryName VARCHAR(40),
+    forCountry VARCHAR(40),
     advice VARCHAR(100),
-    FOREIGN KEY(countryName) REFERENCES Country(countryName),
-    PRIMARY KEY(advice, countryName)
+    FOREIGN KEY(forCountry) REFERENCES Country(countryName),
+    PRIMARY KEY(advice, forCountry)
 );
 
 CREATE TABLE CountryRestrictions (
-    countryName VARCHAR(40),
+    forCountry VARCHAR(40),
     restriction VARCHAR(100),
-    FOREIGN KEY(countryName) REFERENCES Country(countryName),
-    PRIMARY KEY(restriction, countryName)
+    FOREIGN KEY(forCountry) REFERENCES Country(countryName),
+    PRIMARY KEY(restriction, forCountry)
 );
 
 CREATE TABLE Region (
@@ -97,26 +67,26 @@ CREATE TABLE Region (
 );
 
 CREATE TABLE RegionRestrictions (
-    regionName VARCHAR(40),
+    forRegion VARCHAR(40),
     restriction VARCHAR(100),
-    FOREIGN KEY(regionName) REFERENCES Region(regionName),
-    PRIMARY KEY(restriction, regionName)
+    FOREIGN KEY(forRegion) REFERENCES Region(regionName),
+    PRIMARY KEY(restriction, forRegion)
 );
 
 CREATE TABLE City (
 	cityName VARCHAR(40) NOT NULL,
 	postalCode VARCHAR(40) NOT NULL,
-	numberOfCitizens INT,
+	populationTotal INT,
     partOf VARCHAR(40),
     FOREIGN KEY(partOf) REFERENCES Region(regionName),
 	PRIMARY KEY (cityName)
 );
 
 CREATE TABLE CityRestrictions (
-    cityName VARCHAR(40),
+    forCity VARCHAR(40),
     restriction VARCHAR(100),
-    FOREIGN KEY(cityName) REFERENCES Country(countryName),
-    PRIMARY KEY(restriction, cityName)
+    FOREIGN KEY(forCity) REFERENCES City(cityName),
+    PRIMARY KEY(restriction, forCity)
 );
 
 CREATE TABLE User (
@@ -128,24 +98,24 @@ CREATE TABLE User (
 	PRIMARY KEY (email)
 );
 
-CREATE TABLE Subscribers (
-    user VARCHAR(40),
-    country VARCHAR(40),
-    FOREIGN KEY(user) REFERENCES User(email),
-    FOREIGN KEY(country) REFERENCES Country(countryName),
-    PRIMARY KEY(user, country)
+CREATE TABLE Subscriber (
+    email VARCHAR(40),
+    countryName VARCHAR(40),
+    FOREIGN KEY(email) REFERENCES User(email),
+    FOREIGN KEY(countryName) REFERENCES Country(countryName),
+    PRIMARY KEY(email, countryName)
 );
 
 CREATE TABLE CoronaReading(
-    numberOfNewInfected INT,
-    numberOfNewDeaths INT,
-    reproductionNumber INT,
-    referenceTime TIME,
-    city VARCHAR(40),
-    providedBy VARCHAR(40),
-    FOREIGN KEY (city) REFERENCES City(cityName), 
+    NewInfected INT,
+    NewDeaths INT,
+    reproductionNumber DOUBLE,
+    generatedAt TIME,
+    forCity VARCHAR(40),
+    providedBy VARCHAR(160),
+    FOREIGN KEY (forCity) REFERENCES City(cityName), 
     FOREIGN KEY(providedBy) REFERENCES DataOrganization(homepage),
-    PRIMARY KEY (referenceTime, city)
+    PRIMARY KEY (generatedAt, forCity)
 );
 
 CREATE TABLE SpecificTravellingAdvice(
@@ -154,6 +124,42 @@ CREATE TABLE SpecificTravellingAdvice(
     countryFor VARCHAR(40),
     FOREIGN KEY(countryFrom, countryFor) REFERENCES Country(countryName, countryName),
     PRIMARY KEY(countryFrom, countryFor, advice)
+);
+
+CREATE TABLE TrainConnection(
+    fromCity VARCHAR(40),
+    toCity VARCHAR(40),
+    duration TIME,
+	price INT,
+    organizedBy VARCHAR(40),
+    FOREIGN KEY(organizedBy) REFERENCES TravellingOrganization(homepage),
+    FOREIGN KEY(fromCity) REFERENCES City(cityName),
+    FOREIGN KEY(toCity) REFERENCES City(cityName),
+    PRIMARY KEY(fromCity, toCity)
+);
+
+CREATE TABLE AirplaneConnection(
+    fromCity VARCHAR(40),
+    toCity VARCHAR(40),
+    duration TIME,
+	price INT,
+    organizedBy VARCHAR(40),
+    FOREIGN KEY(organizedBy) REFERENCES TravellingOrganization(homepage),
+    FOREIGN KEY(fromCity) REFERENCES City(cityName),
+    FOREIGN KEY(toCity) REFERENCES City(cityName),
+    PRIMARY KEY(fromCity, toCity)
+);
+
+CREATE TABLE BusConnection(
+    fromCity VARCHAR(40),
+    toCity VARCHAR(40),
+    duration TIME,
+	price INT,
+    organizedBy VARCHAR(40),
+    FOREIGN KEY(organizedBy) REFERENCES TravellingOrganization(homepage),
+    FOREIGN KEY(fromCity) REFERENCES City(cityName),
+    FOREIGN KEY(toCity) REFERENCES City(cityName),
+    PRIMARY KEY(fromCity, toCity)
 );
 
 /* 
@@ -224,9 +230,9 @@ INSERT INTO NeedsVisaFor VALUES('Belgium', 'Peru');
 INSERT INTO NeedsVisaFor VALUES('France', 'China');
 INSERT INTO NeedsVisaFor VALUES('France', 'USA');
 
-INSERT INTO CanVisit VALUES('Belgium', 'France');
-INSERT INTO CanVisit VALUES('Belgium', 'Australia');
-INSERT INTO CanVisit VALUES('Belgium', 'Netherlands');
+INSERT INTO CanVisitFreely VALUES('Belgium', 'France');
+INSERT INTO CanVisitFreely VALUES('Belgium', 'Australia');
+INSERT INTO CanVisitFreely VALUES('Belgium', 'Netherlands');
 
 INSERT INTO NeedTest VALUES('Belgium', 'Australia');
 INSERT INTO NeedTest VALUES('France', 'Belgium');
@@ -243,7 +249,7 @@ INSERT INTO Region VALUES ('Provence-Alpes-Côte d Azur', 'France');
 
 INSERT INTO RegionRestrictions VALUES ('Brussels Capital Region', 'People can not go outside between 22 and 6.');
 INSERT INTO RegionRestrictions VALUES ('Flanders', 'People can not go outside between 24 and 5.');
-INSERT INTO RegionRestrictions VALUES ('Wallonie', 'People can not go outside between 24 and 5.');
+INSERT INTO RegionRestrictions VALUES ('Wallonia', 'People can not go outside between 24 and 5.');
 
 /*
 *   City
@@ -276,14 +282,22 @@ INSERT INTO User VALUES ('stijn.desloovere@vub.be', 'Stijn', 'Desloovere', 'Belg
 INSERT INTO User VALUES ('bram.dewit@vub.be', 'Bram', 'Dewit', 'Belgium');
 INSERT INTO User VALUES ('wolf.de.wulf@vub.be', 'Wolf', 'De Wulf', 'Belgium');
 
-INSERT INTO Subscribers VALUES ('alexis.francois.verdoodt@vub.be', 'France');
-INSERT INTO Subscribers VALUES ('stijn.desloovere@vub.be', 'Belgium');
-INSERT INTO Subscribers VALUES ('bram.dewit@vub.be', 'Belgium');
-INSERT INTO Subscribers VALUES ('wolf.de.wulf@vub.be', 'Belgium');
+INSERT INTO Subscriber VALUES ('alexis.francois.verdoodt@vub.be', 'France');
+INSERT INTO Subscriber VALUES ('stijn.desloovere@vub.be', 'Belgium');
+INSERT INTO Subscriber VALUES ('bram.dewit@vub.be', 'Belgium');
+INSERT INTO Subscriber VALUES ('wolf.de.wulf@vub.be', 'Belgium');
 
 /*
 *   Connections
 */ 
+INSERT INTO AirplaneConnection VALUES ('Brussels', 'Nice', '06:20:33', 84, 'https://www.neckermann.be/');
+INSERT INTO AirplaneConnection VALUES ('Marseille', 'Brussels', '04:23:16', 55, 'https://www.neckermann.be/');
+INSERT INTO AirplaneConnection VALUES ('Marseille', 'Nice', '01:15:10', 10, 'https://www.neckermann.be/');
+
+INSERT INTO BusConnection VALUES ('Brussels', 'Nice', '06:20:33', 84, 'https://www.neckermann.be/');
+INSERT INTO BusConnection VALUES ('Marseille', 'Brussels', '04:23:16', 55, 'https://www.neckermann.be/');
+INSERT INTO BusConnection VALUES ('Marseille', 'Nice', '01:15:10', 10, 'https://www.neckermann.be/');
+
 INSERT INTO TrainConnection VALUES ('Brussels', 'Nice', '06:20:33', 84, 'https://www.neckermann.be/');
 INSERT INTO TrainConnection VALUES ('Marseille', 'Brussels', '04:23:16', 55, 'https://www.neckermann.be/');
 INSERT INTO TrainConnection VALUES ('Marseille', 'Nice', '01:15:10', 10, 'https://www.neckermann.be/');
@@ -291,6 +305,11 @@ INSERT INTO TrainConnection VALUES ('Marseille', 'Nice', '01:15:10', 10, 'https:
 /*
 *   CoronaReadings
 */
+
+INSERT INTO CoronaReading VALUES (1000, 100, 0.8, '06:20:33', 'Brussels', 'https://data.gov.be');
+INSERT INTO CoronaReading VALUES (800, 600, 0.7, '06:20:33', 'Marseille', 'https://data.europa.eu/euodp/en/data/dataset/covid-19-coronavirus-data');
+INSERT INTO CoronaReading VALUES (1500, 800, 0.5, '06:20:33', 'Brussels', 'https://data.gov.be');
+
 
 /*
 *   SpecificTravellingAdvice
