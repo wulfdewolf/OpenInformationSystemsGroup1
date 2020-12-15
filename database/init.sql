@@ -1,3 +1,7 @@
+/****************************************************************
+*                           TABLES
+*****************************************************************/
+
 CREATE TABLE NeedsVisaFor (
     origin VARCHAR(40),
     destination VARCHAR(40),
@@ -107,8 +111,9 @@ CREATE TABLE Subscriber (
 );
 
 CREATE TABLE CoronaReading(
-    NewInfected INT,
-    NewDeaths INT,
+    newInfected INT,
+    newDeaths INT,
+    newCured INT,
     reproductionNumber DOUBLE,
     generatedAt TIME,
     forCity VARCHAR(40),
@@ -122,7 +127,8 @@ CREATE TABLE SpecificTravellingAdvice(
     advice VARCHAR(100), 
     countryFrom VARCHAR(40),
     countryFor VARCHAR(40),
-    FOREIGN KEY(countryFrom, countryFor) REFERENCES Country(countryName, countryName),
+    FOREIGN KEY(countryFrom) REFERENCES Country(countryName),
+    FOREIGN KEY(countryFor) REFERENCES Country(countryName),
     PRIMARY KEY(countryFrom, countryFor, advice)
 );
 
@@ -162,9 +168,9 @@ CREATE TABLE BusConnection(
     PRIMARY KEY(fromCity, toCity)
 );
 
-/* 
-*   INSTANCES
-*/
+/****************************************************************
+*                           INSTANCES
+*****************************************************************/
 
 /* 
 *   Continent
@@ -306,11 +312,12 @@ INSERT INTO TrainConnection VALUES ('Marseille', 'Nice', '01:15:10', 10, 'https:
 *   CoronaReadings
 */
 
-INSERT INTO CoronaReading VALUES (1000, 100, 0.8, '06:20:33', 'Brussels', 'https://data.gov.be');
-INSERT INTO CoronaReading VALUES (800, 600, 0.7, '06:20:33', 'Marseille', 'https://data.europa.eu/euodp/en/data/dataset/covid-19-coronavirus-data');
-INSERT INTO CoronaReading VALUES (1500, 800, 0.5, '06:20:33', 'Brussels', 'https://data.gov.be');
+INSERT INTO CoronaReading VALUES (1000, 100, 100, 0.8, '06:20:33', 'Brussels', 'https://data.gov.be');
+INSERT INTO CoronaReading VALUES (800, 600, 100, 0.7, '06:20:33', 'Marseille', 'https://data.europa.eu/euodp/en/data/dataset/covid-19-coronavirus-data');
+INSERT INTO CoronaReading VALUES (1500, 800, 100, 0.5, '06:25:33', 'Brussels', 'https://data.gov.be');
 
 
 /*
 *   SpecificTravellingAdvice
 */
+INSERT INTO SpecificTravellingAdvice VALUES ('Nit welcome.', 'Belgium', 'France');
