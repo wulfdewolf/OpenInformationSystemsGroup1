@@ -1,4 +1,4 @@
-# Open Information Systems Project: group 1: Travelling data and covid-19
+# Open Information Systems Project: group 1: Pandemics and travelling
 Final project for the Open Information System course in the first year of the Computer science master at the [VUB](www.vub.be).
 
 ## Manual
@@ -48,3 +48,12 @@ If you want to make sure no left-over containers are running in the background c
 
 ## Usage
 
+### Database
+An interface that allows for working with the database can be found at localhost:8082.
+To get access to the provided database fill in the following as jdbc url: 
+```
+jdbc\:h2\:tcp\://localhost:9082/data
+```
+
+### SPARQL endpoint
+The SPARQL endpoint can be found at localhost:8080.
