@@ -46,14 +46,20 @@ If you want to make sure no left-over containers are running in the background c
         docker system prune
         ```
 
-## Usage
+### Usage:
 
-### Database
-An interface that allows for working with the database can be found at localhost:8082.
+#### Database
+An interface that allows for working with the database can be found at:
+```
+localhost:8082
+```
 To get access to the provided database fill in the following as jdbc url: 
 ```
 jdbc\:h2\:tcp\://localhost:9082/data
 ```
 
-### SPARQL endpoint
-The SPARQL endpoint can be found at localhost:8080.
+#### SPARQL endpoint
+The SPARQL endpoint can be found at:
+```
+localhost:8080
+```
