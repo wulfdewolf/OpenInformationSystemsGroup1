@@ -3,7 +3,12 @@
 
 #include <stdio.h>
 #include <bits/stdc++.h> 
+#include "../rapidjson/document.h"
+#include "../rapidjson/writer.h"
+#include "../rapidjson/stringbuffer.h"
+#include <iostream>
 using namespace std;
+using namespace rapidjson;
 
 class Printer {
 
@@ -15,11 +20,17 @@ class Printer {
     // Prints a line
     void printLine(string line);
 
-    // Prints disease data
-    void printDiseaseDataResults();
+    // Prints a separator line
+    void printSeparator();
 
-    // Prints travel data
-    void printTravelDataResults();
+    // Prints disease data
+    void printDiseaseResult(string json, string place);
+
+    // Prints general advice
+    void printAdviceResult(string json, string place);
+
+    // Prints specific advice
+    void printSpecificAdviceResult(string json, string from, string place);
 };
 
 #endif

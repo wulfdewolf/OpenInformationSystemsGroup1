@@ -21,8 +21,76 @@ void Printer::printLine(string line) {
     cout << line << endl;
 }
 
-void Printer::printDiseaseDataResults() {
+void Printer::printSeparator() {
+    cout << endl << string(62, '*') << endl << endl;
 }
 
-void Printer::printTravelDataResults() {  
+void Printer::printDiseaseResult(string json, string place) {
+    // Parse as json
+    Document d;
+    d.Parse(json.c_str());
+
+    printSeparator();
+
+    if(d["results"]["bindings"].GetArray().Empty()) {
+         cout << "Given place not in database!" << endl;
+    } else {
+
+        cout << "NUMBERS FOR " << place << ": " << endl << endl;
+
+        // Infected
+        cout << "Infected:              " << d["results"]["bindings"][0]["infected"]["value"].GetString() << endl;
+
+        // Total infected
+        cout << "Total infected:        " << d["results"]["bindings"][0]["totalinfected"]["value"].GetString() << endl;
+
+        // Cured
+        cout << "Cured:                 " << d["results"]["bindings"][0]["cured"]["value"].GetString() << endl;
+
+        // Deaths
+        cout << "Deaths:                " << d["results"]["bindings"][0]["deaths"]["value"].GetString() << endl;
+
+        // Reproduction number
+        cout << "Reproduction number:   " << d["results"]["bindings"][0]["rn"]["value"].GetString() << endl;
+    }
+}
+
+void Printer::printAdviceResult(string json, string place) {  
+    // Parse as json
+    Document d;
+    d.Parse(json.c_str());
+
+    printSeparator();
+
+    if(d["results"]["bindings"].GetArray().Empty()) {
+         cout << "Given countries not in database!" << endl;
+    } else {
+        cout << "TRAVELLING ADVICE FOR " << place << ": " << endl << endl;
+
+        for(Value& s : d["results"]["bindings"].GetArray()) {
+            // Advice
+            cout << "Advice:              " << s["advice"]["value"].GetString() << endl;
+        }
+    }
+}
+
+void Printer::printSpecificAdviceResult(string json, string from, string place) {  
+    // Parse as json
+    Document d;
+    d.Parse(json.c_str());
+
+    cout << json << endl;
+
+    printSeparator();
+
+    if(d["results"]["bindings"].GetArray().Empty()) {
+         cout << "Given countries not in database!" << endl;
+    } else {
+        cout << "TRAVELLING ADVICE FROM " << from << " FOR " << place << ": " << endl << endl;
+
+        // Print all the advices
+        for(Value& s : d["results"]["bindings"].GetArray()) {
+        cout << "Advice:              " << s["advice"]["value"].GetString() << endl;
+        }
+    }
 }

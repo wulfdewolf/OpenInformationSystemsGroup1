@@ -11,7 +11,7 @@ OBJ_FILES := $(patsubst $(SRC_DIR)/%.cpp,$(OBJ_DIR)/%.o,$(SRC_FILES))
 all: $(TARGET) 
 
 $(TARGET): $(OBJ_FILES)
-	$(CC) -o $@ $^ main.cpp
+	$(CC) -o $@ $^ main.cpp -l curl
 
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp | $(OBJ_DIR)

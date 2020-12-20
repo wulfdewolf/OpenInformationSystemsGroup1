@@ -3,15 +3,55 @@
 
 #include <stdio.h>
 #include <bits/stdc++.h> 
+#include <curl/curl.h>
+#include <iostream>
 using namespace std;
 
 class Query {
 
     public: 
 
-    void diseaseQuery();
+    const char* diseaseQueryTemplate = 
+    "PREFIX dbo: <http://dbpedia.org/ontology/>\n"
+    "PREFIX foaf: <http://xmlns.com/foaf/0.1/>\n"
+    "PREFIX : <http://covid-travelling.org/>\n"
+    "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\n"
+    "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n"
+    "SELECT ?place ?infected ?totalinfected ?cured ?deaths ?rn WHERE {"
+    "?place a %s ."
+    "?place rdfs:label '%s' ."
+    "?place :Infected ?infected ."
+    "?place :TotalInfected ?totalinfected ."
+    "?place :Cured ?cured ."
+    "?place :Deaths ?deaths ."
+    "?place :ReproductionNumber ?rn}";
 
-    void travelQuery();
+    const char* adviceQueryTemplate =
+    "PREFIX dbo: <http://dbpedia.org/ontology/>\n"
+    "PREFIX foaf: <http://xmlns.com/foaf/0.1/>\n"
+    "PREFIX : <http://covid-travelling.org/>\n"
+    "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\n"
+    "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n"
+    "SELECT ?advice WHERE {"
+    "?place a dbo:country ."
+    "?place rdfs:label '%s' ."
+    "?place :Advice ?advice .}";
+
+    const char* specificAdviceQueryTemplate =
+    "PREFIX dbo: <http://dbpedia.org/ontology/>\n"
+    "PREFIX foaf: <http://xmlns.com/foaf/0.1/>\n"
+    "PREFIX : <http://covid-travelling.org/>\n"
+    "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\n"
+    "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n"
+    "SELECT ?advice WHERE {"
+    "?usercountry a dbo:country . "
+    "?usercountry rdfs:label '%s' ."
+    "?usercountry :HasSpecificTravellingAdvice ?Sadvice ."
+    "?Sadvice :AdviceFor ?destinationcountry ."
+    "?destinationcountry rdfs:label '%s' ."
+    "?Sadvice :Advice ?advice .}";
+
+    string doQuery(string request);
 };
 
 #endif

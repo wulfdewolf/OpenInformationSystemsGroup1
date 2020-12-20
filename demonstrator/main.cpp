@@ -13,8 +13,9 @@ int main(int argc, char* argv[]) {
 
     int option;
     string user_country = "";
-    string level = "";
-    string name = "";
+    string place = "";
+
+    const char* levels[4] = { "dbo:Continent", "dbo:country", "dbo:city", "dbo:region" };
 
     printer.printIntro();
 
@@ -38,6 +39,7 @@ int main(int argc, char* argv[]) {
                         printer.printLine("Enter country of residence:");
                         cin >> user_country;
                         printer.printLine("User data saved.");
+                        break;
 
                     // Getting covid data
                     case 2:
@@ -47,46 +49,46 @@ int main(int argc, char* argv[]) {
                          while(true) {
                             
                             // Read option from command line
+                            option = 0;
                             cin >> option;
 
                             if(option < 5 && option > 0) {
 
-                                switch(option) {
-                                    
-                                    // Continent
-                                    case 1:
-                                        level = "dbo:Continent";
-                                    
-                                    // Country
-                                    case 2:
-                                        level = "dbo:country";
+                                // Ask for place
+                                printer.printLine("Please enter place name: ");
+                                cin >> place;
 
-                                    // Region
-                                    case 3:
-                                        level = "dbo:region";
+                                // Create query
+                                char buff[1000];
+                                snprintf(buff, sizeof(buff), query.diseaseQueryTemplate, levels[option-1], place.c_str());
 
-                                    // City
-                                    case 4:
-                                        level = "dbo:city";
-
-
-                                    // Ask for name
-                                    printer.printLine("Please enter place name: ");
-                                    cin >> name;
-
-                                    // Send query and print results
-                                   // printer.printDiseaseDataResults(query.diseaseQuery(level, name));
-                                }
+                                 // Do query and print resutls
+                                printer.printDiseaseResult(query.doQuery(buff), place);
+                                break;
                             } else printer.printLine("Please enter a valid option!");
                          }
+                         break;
 
 
                     // Getting travelling advice
                     case 3:
-                        printer.printAdviceResults(query.adviceQuery(user_country));
 
+                        // Ask for country
+                        printer.printLine("Please enter country name: ");
+                        cin >> place;
 
+                        // Create query
+                        char buff[1000];
+                        if(user_country == "") snprintf(buff, sizeof(buff), query.adviceQueryTemplate, place.c_str());
+                        else snprintf(buff, sizeof(buff), query.specificAdviceQueryTemplate, user_country.c_str(), place.c_str());
+
+                        // Do query and print resutls
+                        if(user_country == "") printer.printAdviceResult(query.doQuery(buff), place);
+                        else printer.printSpecificAdviceResult(query.doQuery(buff), user_country, place);
+                        break;
                 }
+                printer.printSeparator();
+                break;
             
             } else printer.printLine("Please enter a valid option:");
         }
