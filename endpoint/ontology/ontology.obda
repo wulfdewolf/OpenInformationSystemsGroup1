@@ -12,7 +12,7 @@ rdfs:		http://www.w3.org/2000/01/rdf-schema#
 
 [MappingDeclaration] @collection [[
 mappingId	CoronaReading
-target		:data/CoronaReading/{generatedAt}/{forCity} a :CoronaReading ; :NewInfected {newInfected}^^xsd:int ; :NewCured {newCured}^^xsd:int ; :NewDeaths {newDeaths}^^xsd:int ; :ReproductionNumber {reproductionNumber}^^owl:rational ; prov:generatedAtTime {generatedAt}^^xsd:dateTime ; :DataProvidedBy :data/DataOrganization/{providedBy} . 
+target		:data/CoronaReading/{forCity}/{generatedAt} a :CoronaReading ; :NewInfected {newInfected}^^xsd:int ; :NewCured {newCured}^^xsd:int ; :NewDeaths {newDeaths}^^xsd:int ; :ReproductionNumber {reproductionNumber}^^owl:rational ; prov:generatedAtTime {generatedAt}^^xsd:dateTime ; :DataProvidedBy :data/DataOrganization/{providedBy} . 
 source		SELECT * FROM CoronaReading
 
 mappingId	City
@@ -20,7 +20,7 @@ target		:data/City/{cityName} a dbo:city ; dbo:postalCode {postalCode}^^xsd:stri
 source		SELECT * FROM City
 
 mappingId	City_CoronaReading
-target		:data/City/{cityName} :Reading :data/CoronaReading/{generatedAt}{cityName} . 
+target		:data/City/{cityName} :Reading :data/CoronaReading/{forCity}/{generatedAt} . 
 source		SELECT * FROM City a INNER JOIN CoronaReading b ON a.cityName = b.forCity
 
 mappingId	CityDerivable

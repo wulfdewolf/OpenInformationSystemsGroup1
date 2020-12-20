@@ -21,4 +21,3 @@ RUN chmod u+x h2.sh
 
 # Entry point
 ENTRYPOINT ./h2.sh
-
