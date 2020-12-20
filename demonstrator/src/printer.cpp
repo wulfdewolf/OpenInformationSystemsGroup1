@@ -30,6 +30,8 @@ void Printer::printDiseaseResult(string json, string place) {
     Document d;
     d.Parse(json.c_str());
 
+    cout << json << endl;
+
     printSeparator();
 
     if(d["results"]["bindings"].GetArray().Empty()) {
@@ -86,7 +88,7 @@ void Printer::printSpecificAdviceResult(string json, string from, string place) 
     if(d["results"]["bindings"].GetArray().Empty()) {
          cout << "Given countries not in database!" << endl;
     } else {
-        cout << "TRAVELLING ADVICE FROM " << from << " FOR " << place << ": " << endl << endl;
+        cout << "TRAVELLING ADVICE FROM " << place << " FOR " << from << ": " << endl << endl;
 
         // Print all the advices
         for(Value& s : d["results"]["bindings"].GetArray()) {

@@ -1,5 +1,5 @@
 [PrefixDeclaration]
-:		http://covid-travelling.org/
+:		http://pandemmy.org/
 dbo:		http://dbpedia.org/ontology/
 owl:		http://www.w3.org/2002/07/owl#
 rdf:		http://www.w3.org/1999/02/22-rdf-syntax-ns#
@@ -20,8 +20,8 @@ target		:data/City/{cityName} a dbo:city ; dbo:postalCode {postalCode}^^xsd:stri
 source		SELECT * FROM City
 
 mappingId	City_PandemicReading
-target		:data/City/{cityName} :Reading :data/PandemicReading/{forCity}/{generatedAt} . 
-source		SELECT * FROM City a INNER JOIN PandemicReading b ON a.cityName = b.forCity
+target		:data/City/{forCity} :Reading :data/PandemicReading/{forCity}/{generatedAt} . 
+source		SELECT * FROM PandemicReading
 
 mappingId	CityDerivable
 target		:data/City/{cityName} :Infected {infected}^^xsd:int ; :TotalInfected {totalInfected}^^xsd:int ; :Cured {cured}^^xsd:int ; :Deaths {deaths}^^xsd:int ; :ReproductionNumber {reproductionNumber}^^owl:rational .
@@ -72,7 +72,7 @@ source		SELECT countryName, restriction
 			group by c.countryName, restriction
 
 mappingId	CountryAdvice
-target		:data/Country/{countryName} :Advice {advice}^^xsd:string . 
+target		:data/Country/{countryName} :GeneralTravellingAdvice {advice}^^xsd:string . 
 source		SELECT countryName, advice
 			from Country c
 			inner join CountryAdvice ca on c.countryName = ca.forCountry
@@ -137,28 +137,28 @@ target		:data/AirplaneConnection/{fromCity}/{toCity} a :AirplaneConnection ; :Du
 source		SELECT * FROM AirplaneConnection
 
 mappingId	City_TrainConnection
-target		:data/City/{cityName} :OutgoingConnection :data/TrainConnection/{cityName}/{toCity} . 
-source		SELECT * FROM City c INNER JOIN TrainConnection tc ON c.cityName = tc.fromCity
+target		:data/City/{fromCity} :OutgoingConnection :data/TrainConnection/{fromCity}/{toCity} . 
+source		SELECT * FROM TrainConnection
 
 mappingId	TrainConnection_City
-target		:data/City/{cityName} :Destination :data/TrainConnection/{fromCity}/{cityName} . 
-source		SELECT * FROM City c INNER JOIN TrainConnection tc ON c.cityName = tc.toCity
+target		:data/City/{toCity} :Destination :data/TrainConnection/{fromCity}/{toCity} . 
+source		SELECT * FROM TrainConnection
 
 mappingId	City_BusConnection
-target		:data/City/{cityName} :OutgoingConnection :data/BusConnection/{cityName}/{toCity} . 
-source		SELECT * FROM City c INNER JOIN BusConnection tc ON c.cityName = tc.fromCity
+target		:data/City/{fromCity} :OutgoingConnection :data/BusConnection/{fromCity}/{toCity} . 
+source		SELECT * FROM BusConnection
 
 mappingId	BusConnection_City
-target		:data/City/{cityName} :Destination :data/BusConnection/{fromCity}/{cityName} . 
-source		SELECT * FROM City c INNER JOIN BusConnection tc ON c.cityName = tc.toCity
+target		:data/City/{toCity} :Destination :data/BusConnection/{fromCity}/{toCity} . 
+source		SELECT * FROM BusConnection
 
 mappingId	City_AirplaneConnection
-target		:data/City/{cityName} :OutgoingConnection :data/AirplaneConnection/{cityName}/{toCity} . 
-source		SELECT * FROM City c INNER JOIN AirplaneConnection tc ON c.cityName = tc.fromCity
+target		:data/City/{fromCity} :OutgoingConnection :data/AirplaneConnection/{fromCity}/{toCity} . 
+source		SELECT * FROM AirplaneConnection
 
 mappingId	AirplaneConnection_City
-target		:data/City/{cityName} :Destination :data/AirplaneConnection/{fromCity}/{cityName} . 
-source		SELECT * FROM City c INNER JOIN AirplaneConnection tc ON c.cityName = tc.toCity
+target		:data/City/{toCity} :Destination :data/AirplaneConnection/{fromCity}/{toCity} . 
+source		SELECT * FROM AirplaneConnection
 
 mappingId	User
 target		:data/User/{email} a foaf:Agent ; foaf:firstName {firstName}^^xsd:string ; foaf:lastName {lastName}^^xsd:string ; foaf:mbox {email}^^xsd:string . 
@@ -197,15 +197,14 @@ target		:data/BusConnection/{fromCity}/{toCity} :OrganizedBy :data/TravellingOrg
 source		SELECT * FROM BusConnection
 
 mappingId	SpecificTravellingAdvice
-target		:data/SpecificTravellingAdvice/{countryFor}/{countryFrom} a :SpecificTravellingAdvice ; :Advice {advice}^^xsd:string . 
+target		:data/SpecificTravellingAdvice/{countryFrom}/{countryFor} a :SpecificTravellingAdvice ; :Advice {advice}^^xsd:string . 
 source		SELECT * FROM SpecificTravellingAdvice
 
 mappingId	Country_SpecificTravellingAdvice
 target		:data/Country/{countryFrom} :HasSpecificTravellingAdvice :data/SpecificTravellingAdvice/{countryFrom}/{countryFor} . 
-source		SELECT * FROM SpecificTravellingAdvice s INNER JOIN Country c ON s.countryFrom = c.countryName
+source		SELECT * FROM SpecificTravellingAdvice
 
 mappingId	SpecificTravellingAdvice_Country
 target		:data/SpecificTravellingAdvice/{countryFrom}/{countryFor} :AdviceFor :data/Country/{countryFor} . 
-source		SELECT * FROM SpecificTravellingAdvice s INNER JOIN Country c ON s.countryFor = c.countryName
+source		SELECT * FROM SpecificTravellingAdvice
 ]]
-
