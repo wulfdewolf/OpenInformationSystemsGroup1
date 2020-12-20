@@ -110,7 +110,7 @@ CREATE TABLE Subscriber (
     PRIMARY KEY(email, countryName)
 );
 
-CREATE TABLE CoronaReading(
+CREATE TABLE PandemicReading(
     newInfected INT,
     newDeaths INT,
     newCured INT,
@@ -319,26 +319,26 @@ INSERT INTO TrainConnection VALUES ('Marseille', 'Brussels', '04:23:16', 55, 'ww
 INSERT INTO TrainConnection VALUES ('Marseille', 'Nice', '01:15:10', 10, 'www.neckermann.be');
 
 /*
-*   CoronaReadings
+*   PandemicReadings
 */
 
-INSERT INTO CoronaReading VALUES (269, 5, 60, 0.8, '2020-12-01', 'Brussels', 'www.worldometers.info');
-INSERT INTO CoronaReading VALUES (198, 8, 30, 0.8, '2020-12-02', 'Brussels', 'www.worldometers.info');
-INSERT INTO CoronaReading VALUES (171, 10, 42, 0.8, '2020-12-03', 'Brussels', 'www.worldometers.info');
-INSERT INTO CoronaReading VALUES (167, 2, 20, 0.8, '2020-12-04', 'Brussels', 'www.worldometers.info');
-INSERT INTO CoronaReading VALUES (103, 4, 33, 0.8, '2020-12-05', 'Brussels', 'www.worldometers.info');
+INSERT INTO PandemicReading VALUES (269, 5, 60, 0.8, '2020-12-01', 'Brussels', 'www.worldometers.info');
+INSERT INTO PandemicReading VALUES (198, 8, 30, 0.8, '2020-12-02', 'Brussels', 'www.worldometers.info');
+INSERT INTO PandemicReading VALUES (171, 10, 42, 0.8, '2020-12-03', 'Brussels', 'www.worldometers.info');
+INSERT INTO PandemicReading VALUES (167, 2, 20, 0.8, '2020-12-04', 'Brussels', 'www.worldometers.info');
+INSERT INTO PandemicReading VALUES (103, 4, 33, 0.8, '2020-12-05', 'Brussels', 'www.worldometers.info');
 
-INSERT INTO CoronaReading VALUES (247, 0, 40, 0.8, '2020-12-01', 'Amsterdam', 'www.fast-trackcities.org');
-INSERT INTO CoronaReading VALUES (300, 2, 15, 0.8, '2020-12-02', 'Amsterdam', 'www.fast-trackcities.org');
-INSERT INTO CoronaReading VALUES (333, 2, 56, 0.8, '2020-12-03', 'Amsterdam', 'www.fast-trackcities.org');
-INSERT INTO CoronaReading VALUES (225, 3, 34, 0.8, '2020-12-04', 'Amsterdam', 'www.fast-trackcities.org');
-INSERT INTO CoronaReading VALUES (694, 3, 120, 0.8, '2020-12-06', 'Amsterdam', 'www.fast-trackcities.org');
+INSERT INTO PandemicReading VALUES (247, 0, 40, 0.8, '2020-12-01', 'Amsterdam', 'www.fast-trackcities.org');
+INSERT INTO PandemicReading VALUES (300, 2, 15, 0.8, '2020-12-02', 'Amsterdam', 'www.fast-trackcities.org');
+INSERT INTO PandemicReading VALUES (333, 2, 56, 0.8, '2020-12-03', 'Amsterdam', 'www.fast-trackcities.org');
+INSERT INTO PandemicReading VALUES (225, 3, 34, 0.8, '2020-12-04', 'Amsterdam', 'www.fast-trackcities.org');
+INSERT INTO PandemicReading VALUES (694, 3, 120, 0.8, '2020-12-06', 'Amsterdam', 'www.fast-trackcities.org');
 
-INSERT INTO CoronaReading VALUES (230, 2, 40, 0.8, '2020-12-01', 'Nice', 'www.coronavirus.jhu.edu');
-INSERT INTO CoronaReading VALUES (146, 0,49, 0.8, '2020-12-02', 'Nice', 'www.coronavirus.jhu.edu');
-INSERT INTO CoronaReading VALUES (130, 1,35, 0.8, '2020-12-03', 'Nice', 'www.coronavirus.jhu.edu');
-INSERT INTO CoronaReading VALUES (90, 5, 14, 0.8, '2020-12-04', 'Nice', 'www.coronavirus.jhu.edu');
-INSERT INTO CoronaReading VALUES (85, 2, 20, 0.8, '2020-12-05', 'Nice', 'www.coronavirus.jhu.edu');
+INSERT INTO PandemicReading VALUES (230, 2, 40, 0.8, '2020-12-01', 'Nice', 'www.coronavirus.jhu.edu');
+INSERT INTO PandemicReading VALUES (146, 0,49, 0.8, '2020-12-02', 'Nice', 'www.coronavirus.jhu.edu');
+INSERT INTO PandemicReading VALUES (130, 1,35, 0.8, '2020-12-03', 'Nice', 'www.coronavirus.jhu.edu');
+INSERT INTO PandemicReading VALUES (90, 5, 14, 0.8, '2020-12-04', 'Nice', 'www.coronavirus.jhu.edu');
+INSERT INTO PandemicReading VALUES (85, 2, 20, 0.8, '2020-12-05', 'Nice', 'www.coronavirus.jhu.edu');
 
 
 
