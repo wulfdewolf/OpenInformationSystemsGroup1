@@ -98,14 +98,14 @@
          rdf:type owl:AsymmetricProperty ,
                   owl:IrreflexiveProperty ;
          rdfs:domain dbo:city ;
-         rdfs:range :CoronaReading .
+         rdfs:range :PandemicReading .
 
 ###  http://covid-travelling.org/DataProvidedBy
 :DataProvidedBy rdf:type owl:ObjectProperty ;
            rdfs:subPropertyOf prov:wasAttributedTo ;
            rdf:type owl:AsymmetricProperty ,
                     owl:IrreflexiveProperty ;
-           rdfs:domain :CoronaReading ;
+           rdfs:domain :PandemicReading ;
            rdfs:range :DataOrganization .
 
 ###  http://covid-travelling.org/SubscribedTo
@@ -142,19 +142,19 @@
 ###  http://covid-travelling.org/NewDeaths
 :NewDeaths rdf:type owl:DatatypeProperty ,
                     owl:FunctionalProperty ;
-           rdfs:domain :CoronaReading ;
+           rdfs:domain :PandemicReading ;
            rdfs:range xsd:int .
 
 ###  http://covid-travelling.org/NewInfected
 :NewInfected rdf:type owl:DatatypeProperty ,
                       owl:FunctionalProperty ;
-             rdfs:domain :CoronaReading ;
+             rdfs:domain :PandemicReading ;
              rdfs:range xsd:int .
 
 ###  http://covid-travelling.org/NewCured
 :NewCured rdf:type owl:DatatypeProperty ,
                       owl:FunctionalProperty ;
-             rdfs:domain :CoronaReading ;
+             rdfs:domain :PandemicReading ;
              rdfs:range xsd:int .
 
 ###  http://covid-travelling.org/Deaths
@@ -191,7 +191,7 @@
 ###  http://covid-travelling.org/ReadingReproductionNumber
 :ReadingReproductionNumber rdf:type owl:DatatypeProperty ,
                                     owl:FunctionalProperty ;
-                           rdfs:domain :CoronaReading ;
+                           rdfs:domain :PandemicReading ;
                            rdfs:range owl:rational .
 
 ###  http://covid-travelling.org/ReproductionNumber
@@ -236,8 +236,8 @@ dbo:region rdf:type owl:Class ;
 :Connection rdf:type owl:Class ;
             rdfs:subClassOf owl:Thing .
 
-###  http://covid-travelling.org/CoronaReading
-:CoronaReading rdf:type owl:Class ;
+###  http://covid-travelling.org/PandemicReading
+:PandemicReading rdf:type owl:Class ;
                rdfs:subClassOf prov:Entity .
 
 ###  http://covid-travelling.org/DataOrganization

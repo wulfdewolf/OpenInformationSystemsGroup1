@@ -11,23 +11,23 @@ prov:		http://www.w3.org/ns/prov#
 rdfs:		http://www.w3.org/2000/01/rdf-schema#
 
 [MappingDeclaration] @collection [[
-mappingId	CoronaReading
-target		:data/CoronaReading/{forCity}/{generatedAt} a :CoronaReading ; :NewInfected {newInfected}^^xsd:int ; :NewCured {newCured}^^xsd:int ; :NewDeaths {newDeaths}^^xsd:int ; :ReproductionNumber {reproductionNumber}^^owl:rational ; prov:generatedAtTime {generatedAt}^^xsd:dateTime ; :DataProvidedBy :data/DataOrganization/{providedBy} . 
-source		SELECT * FROM CoronaReading
+mappingId	PandemicReading
+target		:data/PandemicReading/{forCity}/{generatedAt} a :PandemicReading ; :NewInfected {newInfected}^^xsd:int ; :NewCured {newCured}^^xsd:int ; :NewDeaths {newDeaths}^^xsd:int ; :ReproductionNumber {reproductionNumber}^^owl:rational ; prov:generatedAtTime {generatedAt}^^xsd:dateTime ; :DataProvidedBy :data/DataOrganization/{providedBy} . 
+source		SELECT * FROM PandemicReading
 
 mappingId	City
 target		:data/City/{cityName} a dbo:city ; dbo:postalCode {postalCode}^^xsd:string ; dbo:populationTotal {populationTotal}^^xsd:int ; rdfs:label {cityName}^^xsd:string . 
 source		SELECT * FROM City
 
-mappingId	City_CoronaReading
-target		:data/City/{cityName} :Reading :data/CoronaReading/{forCity}/{generatedAt} . 
-source		SELECT * FROM City a INNER JOIN CoronaReading b ON a.cityName = b.forCity
+mappingId	City_PandemicReading
+target		:data/City/{cityName} :Reading :data/PandemicReading/{forCity}/{generatedAt} . 
+source		SELECT * FROM City a INNER JOIN PandemicReading b ON a.cityName = b.forCity
 
 mappingId	CityDerivable
 target		:data/City/{cityName} :Infected {infected}^^xsd:int ; :TotalInfected {totalInfected}^^xsd:int ; :Cured {cured}^^xsd:int ; :Deaths {deaths}^^xsd:int ; :ReproductionNumber {reproductionNumber}^^owl:rational .
 source		SELECT cityName, SUM(newInfected) - SUM(newCured) as infected, SUM(newInfected) as totalInfected, SUM(newCured) as cured, SUM(newDeaths) as deaths, AVG(reproductionNumber) as reproductionNumber
 			from City c
-			inner join CoronaReading cr on c.cityName = cr.forCity
+			inner join PandemicReading cr on c.cityName = cr.forCity
 			group by c.cityName
 
 mappingId	CityRestrictions
@@ -57,7 +57,7 @@ target		:data/Region/{regionName} :Infected {infected}^^xsd:int ; :TotalInfected
 source		SELECT regionName, SUM(newInfected) - SUM(newCured) as infected, SUM(newInfected) as totalInfected, SUM(newCured) as cured, SUM(newDeaths) as deaths, AVG(reproductionNumber) as reproductionNumber
 			from Region r
 			inner join City c on r.regionName = c.partOf
-			inner join CoronaReading cr on c.cityName = cr.forCity
+			inner join PandemicReading cr on c.cityName = cr.forCity
 			group by r.regionName
 
 mappingId	Country
@@ -88,7 +88,7 @@ source		SELECT countryName, SUM(newInfected) - SUM(newCured) as infected, SUM(ne
 			from Country co
 			inner join Region r on co.countryname = r.partOf
 			inner join City c on r.regionName = c.partOf
-			inner join CoronaReading cr on c.cityName = cr.forCity
+			inner join PandemicReading cr on c.cityName = cr.forCity
 			group by co.countryName
 
 mappingId	Continent
@@ -113,7 +113,7 @@ source		SELECT continentName, SUM(newInfected) - SUM(newCured) as infected, SUM(
 			inner join Country cou on con.continentName = cou.partOf
 			inner join Region r on cou.countryname = r.partOf
 			inner join City c on r.regionName = c.partOf
-			inner join CoronaReading cr on c.cityName = cr.forCity
+			inner join PandemicReading cr on c.cityName = cr.forCity
 			group by con.continentName
 
 mappingId	DataOrganization
