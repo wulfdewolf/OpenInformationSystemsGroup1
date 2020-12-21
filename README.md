@@ -68,8 +68,17 @@ localhost:8080
 
 ## 2. Demonstrator
 
-The demonstrator binary is pre-compiled and can be found in the demonstrator folder. 
-It is a simple script that has to be executed inside a terminal. 
+The demonstrator is a simple script that can be executed inside a terminal. 
+
+### Building:
+
+To build the binary, open a terminal and navigate to the demonstrator folder.
+To build the binary call:
+
+* Windows/Ubuntu/Mac:
+```
+make
+```
 
 ### Running:
 
@@ -84,7 +93,8 @@ demo
 ```
 ./demo
 ```
-        
+
+Make sure that the database and SPARQL endpoint are running as the script uses them.
 
 ### Shutting down:
 
