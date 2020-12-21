@@ -1,7 +1,8 @@
 # Open Information Systems Project: group 1: Pandemics and travelling
 Final project for the Open Information System course in the first year of the Computer science master at [VUB](https://www.vub.be/).
 
-## Manual
+
+## 1. Database and SPARQL endpoint
 
 The system uses docker and docker-compose to run a [H2](https://www.h2database.com/html/main.html) database and a SPARQL endpoint on top of the database using the [Ontop Protégé plugin](https://ontop-vkg.org/).
 It consists of two docker containers, one containing the H2 database and one containing the Ontop application.
@@ -63,3 +64,28 @@ The SPARQL endpoint can be found at:
 ```
 localhost:8080
 ```
+
+## 2. Demonstrator
+
+The demonstrator binary is pre-compiled and can be found in the demonstrator folder. 
+It is a simple script that has to be executed inside a terminal. 
+
+### Running:
+
+Open a terminal and navigate to the demonstrator folder. 
+To run the application call:
+
+* Windows: 
+        ```
+        demo
+        ```
+* Ubuntu/Mac: 
+        ```
+        ./demo
+        ```
+        
+
+### Shutting down:
+
+
+### Usage:
