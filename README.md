@@ -72,7 +72,7 @@ It is a simple script that has to be executed inside a terminal.
 
 ### Running:
 
-Open a terminal and navigate to the demonstrator folder.  
+Open a terminal and navigate to the demonstrator folder.
 To run the application call:
 
 * Windows: 
