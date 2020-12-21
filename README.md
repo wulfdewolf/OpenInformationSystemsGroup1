@@ -40,7 +40,7 @@ To shut the server down press ctrl-c in the terminal running it and then call:
 docker-compose down
 ```
 
-If you want to make sure no left-over containers are running in the background call:
+If you want to make sure that no left-over containers are running in the background call:
 
 * Ubuntu/Windows:
 ```
@@ -72,7 +72,7 @@ It is a simple script that has to be executed inside a terminal.
 
 ### Running:
 
-Open a terminal and navigate to the demonstrator folder. 
+Open a terminal and navigate to the demonstrator folder.  
 To run the application call:
 
 * Windows: 
@@ -87,7 +87,7 @@ demo
 
 ### Shutting down:
 
-To stop the script from running press control + c.
+To stop the script from running press ctrl+c.
 
 
 ### Usage:
