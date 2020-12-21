@@ -49,7 +49,7 @@ If you want to make sure no left-over containers are running in the background c
 ### Usage:
 
 #### Database
-An interface that allows for working with the database can be found at:
+A graphical interface for the database can be found at:
 ```
 localhost:8082
 ```
