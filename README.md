@@ -1,5 +1,5 @@
 # Open Information Systems Project: group 1: Pandemics and travelling
-Final project for the Open Information System course in the first year of the Computer science master at the [VUB](https://www.vub.be/).
+Final project for the Open Information System course in the first year of the Computer science master at [VUB](https://www.vub.be/).
 
 ## Manual
 
