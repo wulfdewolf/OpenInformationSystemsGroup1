@@ -87,7 +87,9 @@ demo
 
 ### Shutting down:
 
-To stop the script from running press ctrl+c.
+To stop the script from running press *ctrl+c*.
 
 
 ### Usage:
+
+The script interface is self-explanatory.
