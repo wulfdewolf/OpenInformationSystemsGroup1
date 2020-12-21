@@ -34,7 +34,7 @@ If a permission error occurs try running the command with administrator privileg
 
 ### Shutting down:
 
-To shut the server down press ctrl-c in the terminal running it and then call:
+To shut the system down press *ctrl-c* in the terminal running it and then call:
 
 * Ubuntu/Windows:
 ```
@@ -88,7 +88,7 @@ demo
 
 ### Shutting down:
 
-To stop the script from running press *ctrl+c*.
+To stop the script from running press *ctrl-c* in the terminal running it.
 
 
 ### Usage:
