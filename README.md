@@ -22,9 +22,9 @@ First open a terminal and navigate to the root folder.
 Then call following command:
 
 * Ubuntu/Windows:
-        ```
-        docker-compose up --build
-        ```
+```
+docker-compose up --build
+```
         
 The ```
     --build
@@ -36,16 +36,16 @@ If a permission error occurs try running the command with administrator privileg
 To shut the server down press ctrl-c in the terminal running it and then call:
 
 * Ubuntu/Windows:
-        ```
-        docker-compose down
-        ```
+```
+docker-compose down
+```
 
 If you want to make sure no left-over containers are running in the background call:
 
 * Ubuntu/Windows:
-        ```
-        docker system prune
-        ```
+```
+docker system prune
+```
 
 ### Usage:
 
@@ -76,16 +76,18 @@ Open a terminal and navigate to the demonstrator folder.
 To run the application call:
 
 * Windows: 
-        ```
-        demo
-        ```
+```
+demo
+```
 * Ubuntu/Mac: 
-        ```
-        ./demo
-        ```
+```
+./demo
+```
         
 
 ### Shutting down:
+
+To stop the script from running press control + c.
 
 
 ### Usage:
