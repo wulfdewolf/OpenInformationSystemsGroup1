@@ -13,6 +13,7 @@ It consists of two docker containers, one containing the H2 database and one con
 
   - ubuntu: https://docs.docker.com/install/linux/docker-ce/ubuntu/
   - windows: https://docs.docker.com/docker-for-windows/install/
+  - pmac: https://docs.docker.com/docker-for-mac/install/
 
 - Install docker-compose: https://docs.docker.com/compose/install/
 
