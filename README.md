@@ -41,7 +41,7 @@ To shut the system down press *ctrl-c* in the terminal running it and then call:
 docker-compose down
 ```
 
-If you want to make sure that no left-over containers are running in the background call:
+If you want to make sure that no left-over containers are running in the background, call:
 
 * Ubuntu/Windows:
 ```
