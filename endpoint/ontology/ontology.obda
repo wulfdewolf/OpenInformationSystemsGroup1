@@ -16,7 +16,7 @@ target		:data/PandemicReading/{forCity}/{generatedAt} a :PandemicReading ; :NewI
 source		SELECT * FROM PandemicReading
 
 mappingId	City
-target		:data/City/{cityName} a dbo:city ; dbo:postalCode {postalCode}^^xsd:string ; dbo:populationTotal {populationTotal}^^xsd:int ; rdfs:label {cityName}^^xsd:string . 
+target		:data/City/{cityName} a dbo:city ; dbo:postalCode {postalCode}^^xsd:string ; dbo:populationTotal {populationTotal}^^xsd:int ; rdfs:label {cityName}^^xsd:string ; dbo:isPartOf :data/Region/{partOf} . 
 source		SELECT * FROM City
 
 mappingId	City_PandemicReading
@@ -24,33 +24,24 @@ target		:data/City/{forCity} :Reading :data/PandemicReading/{forCity}/{generated
 source		SELECT * FROM PandemicReading
 
 mappingId	CityDerivable
-target		:data/City/{cityName} :Infected {infected}^^xsd:int ; :TotalInfected {totalInfected}^^xsd:int ; :Cured {cured}^^xsd:int ; :Deaths {deaths}^^xsd:int ; :ReproductionNumber {reproductionNumber}^^owl:rational .
-source		SELECT cityName, SUM(newInfected) - SUM(newCured) as infected, SUM(newInfected) as totalInfected, SUM(newCured) as cured, SUM(newDeaths) as deaths, AVG(reproductionNumber) as reproductionNumber
-			from City c
-			inner join PandemicReading cr on c.cityName = cr.forCity
-			group by c.cityName
+target		:data/City/{forCity} :Infected {infected}^^xsd:int ; :TotalInfected {totalInfected}^^xsd:int ; :Cured {cured}^^xsd:int ; :Deaths {deaths}^^xsd:int ; :ReproductionNumber {reproductionNumber}^^owl:rational .
+source		SELECT forCity, SUM(newInfected) - SUM(newCured) as infected, SUM(newInfected) as totalInfected, SUM(newCured) as cured, SUM(newDeaths) as deaths, AVG(reproductionNumber) as reproductionNumber
+			from PandemicReading 
+			group by forCity
 
 mappingId	CityRestrictions
-target		:data/City/{cityName} :Restriction {restriction}^^xsd:string . 
-source		SELECT cityName,restriction
-			from City c
-			inner join CityRestrictions cre on c.cityName = cre.forCity
-			group by c.cityName
+target		:data/City/{forCity} :Restriction {restriction}^^xsd:string . 
+source		SELECT forCity,restriction
+			from CityRestrictions
 
 mappingId	Region
-target		:data/Region/{regionName} a dbo:region ; rdfs:label {regionName}^^xsd:string . 
+target		:data/Region/{regionName} a dbo:region ; rdfs:label {regionName}^^xsd:string ; dbo:isPartOf :data/Country/{partOf} . 
 source		SELECT * FROM Region
 
 mappingId	RegionRestriction
-target		:data/Region/{regionName} :Restriction {restriction}^^xsd:string . 
-source		SELECT regionName, restriction
-			from Region r
-			inner join RegionRestrictions rr on r.regionName = rr.forRegion
-			group by r.regionName
-
-mappingId	City_Region
-target		:data/City/{cityName} dbo:isPartOf :data/Region/{regionName} . 
-source		SELECT *  FROM City c INNER JOIN Region r ON c.partOf = r.regionName
+target		:data/Region/{forRegion} :Restriction {restriction}^^xsd:string . 
+source		SELECT forRegion, restriction
+			from RegionRestrictions
 
 mappingId	RegionDerivable
 target		:data/Region/{regionName} :Infected {infected}^^xsd:int ; :TotalInfected {totalInfected}^^xsd:int ; :Cured {cured}^^xsd:int ; :Deaths {deaths}^^xsd:int ; :ReproductionNumber {reproductionNumber}^^owl:rational . 
@@ -61,26 +52,18 @@ source		SELECT regionName, SUM(newInfected) - SUM(newCured) as infected, SUM(new
 			group by r.regionName
 
 mappingId	Country
-target		:data/Country/{countryName} a dbo:country ; rdfs:label {countryName}^^xsd:string . 
+target		:data/Country/{countryName} a dbo:country ; rdfs:label {countryName}^^xsd:string ; dbo:isPartOf :data/Continent/{partOf} . 
 source		SELECT * FROM Country
 
 mappingId	CountryRestriction
-target		:data/Country/{countryName} :Restriction {restriction}^^xsd:string . 
-source		SELECT countryName, restriction
-			from Country c
-			inner join CountryRestrictions cr on c.countryName = cr.forCountry
-			group by c.countryName, restriction
+target		:data/Country/{forCountry} :Restriction {restriction}^^xsd:string . 
+source		SELECT forCountry, restriction
+			from CountryRestrictions 
 
 mappingId	CountryAdvice
-target		:data/Country/{countryName} :GeneralTravellingAdvice {advice}^^xsd:string . 
-source		SELECT countryName, advice
-			from Country c
-			inner join CountryAdvice ca on c.countryName = ca.forCountry
-			group by c.countryName, advice
-
-mappingId	Region_Country
-target		:data/Region/{regionName} dbo:isPartOf :data/Country/{countryName} . 
-source		SELECT * FROM Region r INNER JOIN Country c ON r.partOf = c.countryName
+target		:data/Country/{forCountry} :GeneralTravellingAdvice {advice}^^xsd:string .
+source		SELECT forCountry, advice
+			from CountryAdvice
 
 mappingId	CountryDerivable
 target		:data/Country/{countryName} :Infected {infected}^^xsd:int ; :TotalInfected {totalInfected}^^xsd:int ; :Cured {cured}^^xsd:int ; :Deaths {deaths}^^xsd:int ; :ReproductionNumber {reproductionNumber}^^owl:rational . 
@@ -92,19 +75,13 @@ source		SELECT countryName, SUM(newInfected) - SUM(newCured) as infected, SUM(ne
 			group by co.countryName
 
 mappingId	Continent
-target		:data/Continent/{continentName} a dbo:Continent ; rdfs:label {continentName}^^xsd:string . 
+target		:data/Continent/{continentName} a dbo:Continent ; rdfs:label {continentName}^^xsd:string .
 source		SELECT * FROM Continent
 
 mappingId	ContinentRestriction
-target		:data/Continent/{continentName} :Restriction {restriction}^^xsd:string . 
-source		SELECT continentName, restriction
-			from Continent c
-			inner join ContinentRestrictions cr on c.continentName = cr.forContinent
-			group by c.continentName, restriction
-
-mappingId	Country_Continent
-target		:data/Country/{countryName} dbo:isPartOf :data/Continent/{continentName} . 
-source		SELECT * FROM Country cou INNER JOIN Continent con ON cou.partOf = con.continentName
+target		:data/Continent/{forContinent} :Restriction {restriction}^^xsd:string . 
+source		SELECT forContinent, restriction
+			from ContinentRestrictions
 
 mappingId	ContinentDerivable
 target		:data/Continent/{continentName} :Infected {infected}^^xsd:int ; :TotalInfected {totalInfected}^^xsd:int ; :Cured {cured}^^xsd:int ; :Deaths {deaths}^^xsd:int ; :ReproductionNumber {reproductionNumber}^^owl:rational . 
