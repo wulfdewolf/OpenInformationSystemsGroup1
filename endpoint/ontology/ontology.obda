@@ -137,13 +137,9 @@ mappingId	AirplaneConnection_City
 target		:data/City/{toCity} :Destination :data/AirplaneConnection/{fromCity}/{toCity} . 
 source		SELECT * FROM AirplaneConnection
 
-mappingId	User
-target		:data/User/{email} a foaf:Agent ; foaf:firstName {firstName}^^xsd:string ; foaf:lastName {lastName}^^xsd:string ; foaf:mbox {email}^^xsd:string . 
-source		SELECT * FROM User
-
-mappingId	User_Country
-target		:data/User/{email} :SubscribedTo :data/Country/{countryName} . 
-source		SELECT * FROM Subscriber
+mappingId	Person
+target		:data/Person/{email} a foaf:Person ; foaf:firstName {firstName}^^xsd:string ; foaf:lastName {lastName}^^xsd:string ; foaf:mbox {email}^^xsd:string . 
+source		SELECT * FROM Person
 
 mappingId	Country_Country_Visa
 target		:data/Country/{origin} :NeedsVisaFor :data/Country/{destination} . 
@@ -157,9 +153,9 @@ mappingId	Country_Country_Test
 target		:data/Country/{origin} :NeedTestToEnter :data/Country/{destination} . 
 source		SELECT * FROM NeedTest
 
-mappingId	User_Country_Lives
-target		:data/User/{email} :LivesIn :data/Country/{livesIn} . 
-source		SELECT * FROM User
+mappingId	Person_Country_Lives
+target		:data/Person/{email} :LivesIn :data/Country/{livesIn} . 
+source		SELECT * FROM Person
 
 mappingId	AirplaneConnection_TravellingOrganization
 target		:data/AirplaneConnection/{fromCity}/{toCity} :OrganizedBy :data/TravellingOrganization/{organizedBy} . 

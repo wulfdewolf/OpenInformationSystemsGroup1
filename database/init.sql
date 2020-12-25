@@ -93,21 +93,13 @@ CREATE TABLE CityRestrictions (
     PRIMARY KEY(restriction, forCity)
 );
 
-CREATE TABLE User (
+CREATE TABLE Person (
 	email VARCHAR(40),
 	firstName VARCHAR(40),
 	lastName VARCHAR(40),
     livesIn VARCHAR(40),
     FOREIGN KEY(livesIn) REFERENCES Country(countryName),
 	PRIMARY KEY (email)
-);
-
-CREATE TABLE Subscriber (
-    email VARCHAR(40),
-    countryName VARCHAR(40),
-    FOREIGN KEY(email) REFERENCES User(email),
-    FOREIGN KEY(countryName) REFERENCES Country(countryName),
-    PRIMARY KEY(email, countryName)
 );
 
 CREATE TABLE PandemicReading(
@@ -291,17 +283,13 @@ INSERT INTO TravellingOrganization VALUES('www.brusselsairlines.com');
 INSERT INTO TravellingOrganization VALUES('www.ryanair.com');
 
 /*
-*   Users
+*   Person
 */ 
-INSERT INTO User VALUES ('alexis.francois.verdoodt@vub.be', 'Alexis', 'Verdoodt', 'France');
-INSERT INTO User VALUES ('stijn.desloovere@vub.be', 'Stijn', 'Desloovere', 'Belgium');
-INSERT INTO User VALUES ('bram.dewit@vub.be', 'Bram', 'Dewit', 'Belgium');
-INSERT INTO User VALUES ('wolf.de.wulf@vub.be', 'Wolf', 'De Wulf', 'Belgium');
+INSERT INTO Person VALUES ('alexis.francois.verdoodt@vub.be', 'Alexis', 'Verdoodt', 'France');
+INSERT INTO Person VALUES ('stijn.desloovere@vub.be', 'Stijn', 'Desloovere', 'Belgium');
+INSERT INTO Person VALUES ('bram.dewit@vub.be', 'Bram', 'Dewit', 'Belgium');
+INSERT INTO Person VALUES ('wolf.de.wulf@vub.be', 'Wolf', 'De Wulf', 'Belgium');
 
-INSERT INTO Subscriber VALUES ('alexis.francois.verdoodt@vub.be', 'France');
-INSERT INTO Subscriber VALUES ('stijn.desloovere@vub.be', 'Belgium');
-INSERT INTO Subscriber VALUES ('bram.dewit@vub.be', 'Belgium');
-INSERT INTO Subscriber VALUES ('wolf.de.wulf@vub.be', 'Belgium');
 
 /*
 *   Connections
