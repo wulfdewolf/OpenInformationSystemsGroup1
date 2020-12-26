@@ -29,9 +29,7 @@ void Printer::printDiseaseResult(string json, string place) {
     // Parse as json
     Document d;
     d.Parse(json.c_str());
-
-    cout << json << endl;
-
+    
     printSeparator();
 
     if(d["results"]["bindings"].GetArray().Empty()) {
@@ -81,8 +79,6 @@ void Printer::printSpecificAdviceResult(string json, string from, string place) 
     Document d;
     d.Parse(json.c_str());
 
-    cout << json << endl;
-
     printSeparator();
 
     if(d["results"]["bindings"].GetArray().Empty()) {
@@ -94,5 +90,29 @@ void Printer::printSpecificAdviceResult(string json, string from, string place) 
         for(Value& s : d["results"]["bindings"].GetArray()) {
         cout << "Advice:              " << s["advice"]["value"].GetString() << endl;
         }
+    }
+}
+
+void Printer::printStandingsResult(string json, int order) {  
+    // Parse as json
+    Document d;
+    d.Parse(json.c_str());
+
+    string title = "Infected";
+    if(order == 2) title = "Deaths";
+
+    printSeparator();
+
+    cout << "STANDINGS FOR " << title << ": " << endl << endl;
+
+    int index = 1;
+
+    // Print the standings
+    for(Value& s : d["results"]["bindings"].GetArray()) {
+
+        string name = s["name"]["value"].GetString();
+        string number = s["total"]["value"].GetString();
+        cout << index << ". " << name << string(20-name.length(), ' ') << number << endl;
+        index++;
     }
 }

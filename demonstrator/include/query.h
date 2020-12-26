@@ -51,6 +51,19 @@ class Query {
     "?destinationcountry rdfs:label '%s' ."
     "?Sadvice :Advice ?advice .}";
 
+    const char* standingsQueryTemplate =
+    "PREFIX dbo: <http://dbpedia.org/ontology/>\n"
+    "PREFIX foaf: <http://xmlns.com/foaf/0.1/>\n"
+    "PREFIX : <http://pandemmy.org/>\n"
+    "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\n"
+    "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n"
+    "SELECT ?name (SUM(?toCount) as ?total) WHERE {"
+    "?cr a :PandemicReading ."
+    "?city :Reading ?cr ."
+    "?city rdfs:label ?name ."
+    "?cr %s ?toCount ."  
+    "} GROUP BY ?name ORDER BY desc(?total)";
+
     string doQuery(string request);
 };
 

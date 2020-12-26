@@ -31,6 +31,9 @@ class Printer {
 
     // Prints specific advice
     void printSpecificAdviceResult(string json, string from, string place);
+
+    // Prints standings
+    void printStandingsResult(string json, int order);
 };
 
 #endif
