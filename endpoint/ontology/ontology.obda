@@ -12,7 +12,7 @@ rdfs:		http://www.w3.org/2000/01/rdf-schema#
 
 [MappingDeclaration] @collection [[
 mappingId	PandemicReading
-target		:data/PandemicReading/{forCity}/{generatedAt} a :PandemicReading ; :NewInfected {newInfected}^^xsd:int ; :NewCured {newCured}^^xsd:int ; :NewDeaths {newDeaths}^^xsd:int ; :ReproductionNumber {reproductionNumber}^^owl:rational ; prov:generatedAtTime {generatedAt}^^xsd:dateTime ; :DataProvidedBy :data/DataOrganization/{providedBy} . 
+target		:data/PandemicReading/{forCity}/{generatedAt} a :PandemicReading ; :NewInfected {newInfected}^^xsd:int ; :NewCured {newCured}^^xsd:int ; :NewDeaths {newDeaths}^^xsd:int ; :ReadingReproductionNumber {reproductionNumber}^^owl:rational ; prov:generatedAtTime {generatedAt}^^xsd:dateTime ; :DataProvidedBy :data/DataOrganization/{providedBy} . 
 source		SELECT * FROM PandemicReading
 
 mappingId	City
@@ -102,39 +102,27 @@ target		:data/TravellingOrganization/{homepage} a :TravellingOrganization ; foaf
 source		SELECT * FROM TravellingOrganization
 
 mappingId	TrainConnection
-target		:data/TrainConnection/{fromCity}/{toCity} a :TrainConnection ; :Duration {duration}^^xsd:long ; :Price {price}^^xsd:int ; prov:wasAttributedTo :data/{organizedBy} . 
+target		:data/TrainConnection/{fromCity}/{toCity} a :TrainConnection ; :Duration {duration}^^xsd:long ; :Price {price}^^xsd:int ; :OrganizedBy :data/TravellingOrganization/{OrganizedBy} ; :Destination :data/City/{toCity}. 
 source		SELECT * FROM TrainConnection
 
 mappingId	BusConnection
-target		:data/BusConnection/{fromCity}/{toCity} a :BusConnection ; :Duration {duration}^^xsd:long ; :Price {price}^^xsd:int ; prov:wasAttributedTo :data/{OrganizedBy} . 
+target		:data/BusConnection/{fromCity}/{toCity} a :BusConnection ; :Duration {duration}^^xsd:long ; :Price {price}^^xsd:int ; :OrganizedBy :data/TravellingOrganization/{OrganizedBy} ;  :Destination :data/City/{toCity}. 
 source		SELECT * FROM BusConnection
 
 mappingId	AirplaneConnection
-target		:data/AirplaneConnection/{fromCity}/{toCity} a :AirplaneConnection ; :Duration {duration}^^xsd:long ; :Price {price}^^xsd:int ; prov:wasAttributedTo :data/{OrganizedBy} . 
+target		:data/AirplaneConnection/{fromCity}/{toCity} a :AirplaneConnection ; :Duration {duration}^^xsd:long ; :Price {price}^^xsd:int ; :OrganizedBy :data/TravellingOrganization/{OrganizedBy} ; :Destination :data/City/{toCity}. 
 source		SELECT * FROM AirplaneConnection
 
 mappingId	City_TrainConnection
 target		:data/City/{fromCity} :OutgoingConnection :data/TrainConnection/{fromCity}/{toCity} . 
 source		SELECT * FROM TrainConnection
 
-mappingId	TrainConnection_City
-target		:data/City/{toCity} :Destination :data/TrainConnection/{fromCity}/{toCity} . 
-source		SELECT * FROM TrainConnection
-
 mappingId	City_BusConnection
 target		:data/City/{fromCity} :OutgoingConnection :data/BusConnection/{fromCity}/{toCity} . 
 source		SELECT * FROM BusConnection
 
-mappingId	BusConnection_City
-target		:data/City/{toCity} :Destination :data/BusConnection/{fromCity}/{toCity} . 
-source		SELECT * FROM BusConnection
-
 mappingId	City_AirplaneConnection
 target		:data/City/{fromCity} :OutgoingConnection :data/AirplaneConnection/{fromCity}/{toCity} . 
-source		SELECT * FROM AirplaneConnection
-
-mappingId	AirplaneConnection_City
-target		:data/City/{toCity} :Destination :data/AirplaneConnection/{fromCity}/{toCity} . 
 source		SELECT * FROM AirplaneConnection
 
 mappingId	Person

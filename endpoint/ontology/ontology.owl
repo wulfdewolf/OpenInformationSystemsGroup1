@@ -190,7 +190,7 @@
 :ReproductionNumber rdf:type owl:DatatypeProperty ;
                     rdfs:subPropertyOf owl:topDataProperty ;
                     rdf:type owl:FunctionalProperty ;
-                    rdfs:domain owl:Class ;
+                    rdfs:domain dbo:Place ;
                     rdfs:range owl:rational .
 
 ###  http://pandemmy.org/Restriction
