@@ -18,7 +18,7 @@ int main(int argc, char* argv[]) {
     string place = "";
 
     const char* levels[4] = { "dbo:Continent", "dbo:country", "dbo:region", "dbo:city"};
-    const char* orders[2] = { ":NewInfected", ":NewDeaths"};
+    const char* orders[2] = { ":newInfected", ":newDeaths"};
 
     printer.printIntro();
 

@@ -12,7 +12,7 @@ rdfs:		http://www.w3.org/2000/01/rdf-schema#
 
 [MappingDeclaration] @collection [[
 mappingId	PandemicReading
-target		:data/PandemicReading/{forCity}/{generatedAt} a :PandemicReading ; :NewInfected {newInfected}^^xsd:int ; :NewCured {newCured}^^xsd:int ; :NewDeaths {newDeaths}^^xsd:int ; :ReadingReproductionNumber {reproductionNumber}^^owl:rational ; prov:generatedAtTime {generatedAt}^^xsd:dateTime ; :DataProvidedBy :data/DataOrganization/{providedBy} . 
+target		:data/PandemicReading/{forCity}/{generatedAt} a :PandemicReading ; :newInfected {newInfected}^^xsd:int ; :newCured {newCured}^^xsd:int ; :newDeaths {newDeaths}^^xsd:int ; :observedReproductionNumber {reproductionNumber}^^owl:rational ; prov:generatedAtTime {generatedAt}^^xsd:dateTime ; :dataProvidedBy :data/DataOrganization/{providedBy} . 
 source		SELECT * FROM PandemicReading
 
 mappingId	City
@@ -20,17 +20,17 @@ target		:data/City/{cityName} a dbo:city ; dbo:postalCode {postalCode}^^xsd:stri
 source		SELECT * FROM City
 
 mappingId	City_PandemicReading
-target		:data/City/{forCity} :Reading :data/PandemicReading/{forCity}/{generatedAt} . 
+target		:data/City/{forCity} :reading :data/PandemicReading/{forCity}/{generatedAt} . 
 source		SELECT * FROM PandemicReading
 
 mappingId	CityDerivable
-target		:data/City/{forCity} :Infected {infected}^^xsd:int ; :TotalInfected {totalInfected}^^xsd:int ; :Cured {cured}^^xsd:int ; :Deaths {deaths}^^xsd:int ; :ReproductionNumber {reproductionNumber}^^owl:rational .
+target		:data/City/{forCity} :infected {infected}^^xsd:int ; :totalInfected {totalInfected}^^xsd:int ; :cured {cured}^^xsd:int ; :deaths {deaths}^^xsd:int ; :derivedReproductionNumber {reproductionNumber}^^owl:rational . 
 source		SELECT forCity, SUM(newInfected) - SUM(newCured) as infected, SUM(newInfected) as totalInfected, SUM(newCured) as cured, SUM(newDeaths) as deaths, AVG(reproductionNumber) as reproductionNumber
-			from PandemicReading 
+			from PandemicReading
 			group by forCity
 
 mappingId	CityRestrictions
-target		:data/City/{forCity} :Restriction {restriction}^^xsd:string . 
+target		:data/City/{forCity} :restriction {restriction}^^xsd:string . 
 source		SELECT forCity,restriction
 			from CityRestrictions
 
@@ -39,12 +39,12 @@ target		:data/Region/{regionName} a dbo:region ; rdfs:label {regionName}^^xsd:st
 source		SELECT * FROM Region
 
 mappingId	RegionRestriction
-target		:data/Region/{forRegion} :Restriction {restriction}^^xsd:string . 
+target		:data/Region/{forRegion} :restriction {restriction}^^xsd:string . 
 source		SELECT forRegion, restriction
 			from RegionRestrictions
 
 mappingId	RegionDerivable
-target		:data/Region/{regionName} :Infected {infected}^^xsd:int ; :TotalInfected {totalInfected}^^xsd:int ; :Cured {cured}^^xsd:int ; :Deaths {deaths}^^xsd:int ; :ReproductionNumber {reproductionNumber}^^owl:rational . 
+target		:data/Region/{regionName} :infected {infected}^^xsd:int ; :totalInfected {totalInfected}^^xsd:int ; :cured {cured}^^xsd:int ; :deaths {deaths}^^xsd:int ; :derivedReproductionNumber {reproductionNumber}^^owl:rational . 
 source		SELECT regionName, SUM(newInfected) - SUM(newCured) as infected, SUM(newInfected) as totalInfected, SUM(newCured) as cured, SUM(newDeaths) as deaths, AVG(reproductionNumber) as reproductionNumber
 			from Region r
 			inner join City c on r.regionName = c.partOf
@@ -56,17 +56,17 @@ target		:data/Country/{countryName} a dbo:country ; rdfs:label {countryName}^^xs
 source		SELECT * FROM Country
 
 mappingId	CountryRestriction
-target		:data/Country/{forCountry} :Restriction {restriction}^^xsd:string . 
+target		:data/Country/{forCountry} :restriction {restriction}^^xsd:string . 
 source		SELECT forCountry, restriction
-			from CountryRestrictions 
+			from CountryRestrictions
 
 mappingId	CountryAdvice
-target		:data/Country/{forCountry} :GeneralTravellingAdvice {advice}^^xsd:string .
+target		:data/Country/{forCountry} :generalTravellingAdvice {advice}^^xsd:string . 
 source		SELECT forCountry, advice
 			from CountryAdvice
 
 mappingId	CountryDerivable
-target		:data/Country/{countryName} :Infected {infected}^^xsd:int ; :TotalInfected {totalInfected}^^xsd:int ; :Cured {cured}^^xsd:int ; :Deaths {deaths}^^xsd:int ; :ReproductionNumber {reproductionNumber}^^owl:rational . 
+target		:data/Country/{countryName} :infected {infected}^^xsd:int ; :totalInfected {totalInfected}^^xsd:int ; :cured {cured}^^xsd:int ; :deaths {deaths}^^xsd:int ; :derivedReproductionNumber {reproductionNumber}^^owl:rational . 
 source		SELECT countryName, SUM(newInfected) - SUM(newCured) as infected, SUM(newInfected) as totalInfected, SUM(newCured) as cured, SUM(newDeaths) as deaths, AVG(reproductionNumber) as reproductionNumber
 			from Country co
 			inner join Region r on co.countryname = r.partOf
@@ -75,16 +75,16 @@ source		SELECT countryName, SUM(newInfected) - SUM(newCured) as infected, SUM(ne
 			group by co.countryName
 
 mappingId	Continent
-target		:data/Continent/{continentName} a dbo:Continent ; rdfs:label {continentName}^^xsd:string .
+target		:data/Continent/{continentName} a dbo:Continent ; rdfs:label {continentName}^^xsd:string . 
 source		SELECT * FROM Continent
 
 mappingId	ContinentRestriction
-target		:data/Continent/{forContinent} :Restriction {restriction}^^xsd:string . 
+target		:data/Continent/{forContinent} :restriction {restriction}^^xsd:string . 
 source		SELECT forContinent, restriction
 			from ContinentRestrictions
 
 mappingId	ContinentDerivable
-target		:data/Continent/{continentName} :Infected {infected}^^xsd:int ; :TotalInfected {totalInfected}^^xsd:int ; :Cured {cured}^^xsd:int ; :Deaths {deaths}^^xsd:int ; :ReproductionNumber {reproductionNumber}^^owl:rational . 
+target		:data/Continent/{continentName} :infected {infected}^^xsd:int ; :totalInfected {totalInfected}^^xsd:int ; :cured {cured}^^xsd:int ; :deaths {deaths}^^xsd:int ; :derivedReproductionNumber {reproductionNumber}^^owl:rational . 
 source		SELECT continentName, SUM(newInfected) - SUM(newCured) as infected, SUM(newInfected) as totalInfected, SUM(newCured) as cured, SUM(newDeaths) as deaths, AVG(reproductionNumber) as reproductionNumber
 			from Continent con
 			inner join Country cou on con.continentName = cou.partOf
@@ -102,27 +102,27 @@ target		:data/TravellingOrganization/{homepage} a :TravellingOrganization ; foaf
 source		SELECT * FROM TravellingOrganization
 
 mappingId	TrainConnection
-target		:data/TrainConnection/{fromCity}/{toCity} a :TrainConnection ; :Duration {duration}^^xsd:long ; :Price {price}^^xsd:int ; :OrganizedBy :data/TravellingOrganization/{OrganizedBy} ; :Destination :data/City/{toCity}. 
+target		:data/TrainConnection/{fromCity}/{toCity} a :TrainConnection ; :duration {duration}^^xsd:long ; :price {price}^^xsd:int ; :organizedBy :data/TravellingOrganization/{OrganizedBy} ; :destination :data/City/{toCity} . 
 source		SELECT * FROM TrainConnection
 
 mappingId	BusConnection
-target		:data/BusConnection/{fromCity}/{toCity} a :BusConnection ; :Duration {duration}^^xsd:long ; :Price {price}^^xsd:int ; :OrganizedBy :data/TravellingOrganization/{OrganizedBy} ;  :Destination :data/City/{toCity}. 
+target		:data/BusConnection/{fromCity}/{toCity} a :BusConnection ; :duration {duration}^^xsd:long ; :price {price}^^xsd:int ; :organizedBy :data/TravellingOrganization/{OrganizedBy} ; :destination :data/City/{toCity} . 
 source		SELECT * FROM BusConnection
 
 mappingId	AirplaneConnection
-target		:data/AirplaneConnection/{fromCity}/{toCity} a :AirplaneConnection ; :Duration {duration}^^xsd:long ; :Price {price}^^xsd:int ; :OrganizedBy :data/TravellingOrganization/{OrganizedBy} ; :Destination :data/City/{toCity}. 
+target		:data/AirplaneConnection/{fromCity}/{toCity} a :AirplaneConnection ; :duration {duration}^^xsd:long ; :price {price}^^xsd:int ; :organizedBy :data/TravellingOrganization/{OrganizedBy} ; :destination :data/City/{toCity} . 
 source		SELECT * FROM AirplaneConnection
 
 mappingId	City_TrainConnection
-target		:data/City/{fromCity} :OutgoingConnection :data/TrainConnection/{fromCity}/{toCity} . 
+target		:data/City/{fromCity} :outgoingConnection :data/TrainConnection/{fromCity}/{toCity} . 
 source		SELECT * FROM TrainConnection
 
 mappingId	City_BusConnection
-target		:data/City/{fromCity} :OutgoingConnection :data/BusConnection/{fromCity}/{toCity} . 
+target		:data/City/{fromCity} :outgoingConnection :data/BusConnection/{fromCity}/{toCity} . 
 source		SELECT * FROM BusConnection
 
 mappingId	City_AirplaneConnection
-target		:data/City/{fromCity} :OutgoingConnection :data/AirplaneConnection/{fromCity}/{toCity} . 
+target		:data/City/{fromCity} :outgoingConnection :data/AirplaneConnection/{fromCity}/{toCity} . 
 source		SELECT * FROM AirplaneConnection
 
 mappingId	Person
@@ -130,42 +130,43 @@ target		:data/Person/{email} a foaf:Person ; foaf:firstName {firstName}^^xsd:str
 source		SELECT * FROM Person
 
 mappingId	Country_Country_Visa
-target		:data/Country/{origin} :NeedsVisaFor :data/Country/{destination} . 
+target		:data/Country/{origin} :needsVisaFor :data/Country/{destination} . 
 source		SELECT * FROM NeedsVisaFor
 
 mappingId	Country_Country_Freely
-target		:data/Country/{origin} :NeedsVisaFor :data/Country/{destination} . 
+target		:data/Country/{origin} :needsVisaFor :data/Country/{destination} . 
 source		SELECT * FROM CanVisitFreely
 
 mappingId	Country_Country_Test
-target		:data/Country/{origin} :NeedTestToEnter :data/Country/{destination} . 
+target		:data/Country/{origin} :needTestToEnter :data/Country/{destination} . 
 source		SELECT * FROM NeedTest
 
 mappingId	Person_Country_Lives
-target		:data/Person/{email} :LivesIn :data/Country/{livesIn} . 
+target		:data/Person/{email} :livesIn :data/Country/{livesIn} . 
 source		SELECT * FROM Person
 
 mappingId	AirplaneConnection_TravellingOrganization
-target		:data/AirplaneConnection/{fromCity}/{toCity} :OrganizedBy :data/TravellingOrganization/{organizedBy} . 
+target		:data/AirplaneConnection/{fromCity}/{toCity} :organizedBy :data/TravellingOrganization/{organizedBy} . 
 source		SELECT * FROM AirplaneConnection
 
 mappingId	TrainConnection_TravellingOrganization
-target		:data/TrainConnection/{fromCity}/{toCity} :OrganizedBy :data/TravellingOrganization/{organizedBy} . 
+target		:data/TrainConnection/{fromCity}/{toCity} :organizedBy :data/TravellingOrganization/{organizedBy} . 
 source		SELECT * FROM TrainConnection
 
 mappingId	BusConnection_TravellingOrganization
-target		:data/BusConnection/{fromCity}/{toCity} :OrganizedBy :data/TravellingOrganization/{organizedBy} . 
+target		:data/BusConnection/{fromCity}/{toCity} :organizedBy :data/TravellingOrganization/{organizedBy} . 
 source		SELECT * FROM BusConnection
 
 mappingId	SpecificTravellingAdvice
-target		:data/SpecificTravellingAdvice/{countryFrom}/{countryFor} a :SpecificTravellingAdvice ; :Advice {advice}^^xsd:string . 
+target		:data/SpecificTravellingAdvice/{countryFrom}/{countryFor} a :SpecificTravellingAdvice ; :advice {advice}^^xsd:string . 
 source		SELECT * FROM SpecificTravellingAdvice
 
 mappingId	Country_SpecificTravellingAdvice
-target		:data/Country/{countryFrom} :HasSpecificTravellingAdvice :data/SpecificTravellingAdvice/{countryFrom}/{countryFor} . 
+target		:data/Country/{countryFrom} :hasSpecificTravellingAdvice :data/SpecificTravellingAdvice/{countryFrom}/{countryFor} . 
 source		SELECT * FROM SpecificTravellingAdvice
 
 mappingId	SpecificTravellingAdvice_Country
-target		:data/SpecificTravellingAdvice/{countryFrom}/{countryFor} :AdviceFor :data/Country/{countryFor} . 
+target		:data/SpecificTravellingAdvice/{countryFrom}/{countryFor} :adviceFor :data/Country/{countryFor} . 
 source		SELECT * FROM SpecificTravellingAdvice
 ]]
+

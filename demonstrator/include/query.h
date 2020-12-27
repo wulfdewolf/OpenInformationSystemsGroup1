@@ -20,11 +20,11 @@ class Query {
     "SELECT ?place ?infected ?totalinfected ?cured ?deaths ?rn WHERE {"
     "?place a %s ."
     "?place rdfs:label '%s' ."
-    "?place :Infected ?infected ."
-    "?place :TotalInfected ?totalinfected ."
-    "?place :Cured ?cured ."
-    "?place :Deaths ?deaths ."
-    "?place :ReproductionNumber ?rn}";
+    "?place :infected ?infected ."
+    "?place :totalInfected ?totalinfected ."
+    "?place :cured ?cured ."
+    "?place :deaths ?deaths ."
+    "?place :derivedReproductionNumber ?rn}";
 
     const char* adviceQueryTemplate =
     "PREFIX dbo: <http://dbpedia.org/ontology/>\n"
@@ -35,7 +35,7 @@ class Query {
     "SELECT ?advice WHERE {"
     "?place a dbo:country ."
     "?place rdfs:label '%s' ."
-    "?place :GeneralTravellingAdvice ?advice .}";
+    "?place :generalTravellingAdvice ?advice .}";
 
     const char* specificAdviceQueryTemplate =
     "PREFIX dbo: <http://dbpedia.org/ontology/>\n"
@@ -46,10 +46,10 @@ class Query {
     "SELECT ?advice WHERE {"
     "?usercountry a dbo:country . "
     "?usercountry rdfs:label '%s' ."
-    "?Sadvice :AdviceFor ?usercountry."
-    "?destinationcountry :HasSpecificTravellingAdvice ?Sadvice."
+    "?Sadvice :adviceFor ?usercountry."
+    "?destinationcountry :hasSpecificTravellingAdvice ?Sadvice."
     "?destinationcountry rdfs:label '%s' ."
-    "?Sadvice :Advice ?advice .}";
+    "?Sadvice :advice ?advice .}";
 
     const char* standingsQueryTemplate =
     "PREFIX dbo: <http://dbpedia.org/ontology/>\n"
@@ -59,7 +59,7 @@ class Query {
     "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n"
     "SELECT ?name (SUM(?toCount) as ?total) WHERE {"
     "?cr a :PandemicReading ."
-    "?city :Reading ?cr ."
+    "?city :reading ?cr ."
     "?city rdfs:label ?name ."
     "?cr %s ?toCount ."  
     "} GROUP BY ?name ORDER BY desc(?total)";

@@ -16,8 +16,8 @@
 #    Object Properties
 #################################################################
 
-###  http://pandemmy.org/AdviceFor
-:AdviceFor rdf:type owl:ObjectProperty ;
+###  http://pandemmy.org/adviceFor
+:adviceFor rdf:type owl:ObjectProperty ;
            rdfs:subPropertyOf owl:topObjectProperty ;
            rdf:type owl:FunctionalProperty ,
                     owl:AsymmetricProperty ,
@@ -25,17 +25,28 @@
            rdfs:domain :SpecificTravellingAdvice ;
            rdfs:range dbo:country .
 
-###  http://pandemmy.org/CanVisitFreely
-:CanVisitFreely rdf:type owl:ObjectProperty ;
+
+###  http://pandemmy.org/canVisitFreely
+:canVisitFreely rdf:type owl:ObjectProperty ;
                 rdfs:subPropertyOf owl:topObjectProperty ;
                 rdf:type owl:AsymmetricProperty ,
                          owl:IrreflexiveProperty ;
                 rdfs:domain dbo:country ;
                 rdfs:range dbo:country ;
-                owl:propertyDisjointWith :NeedTestToEnter .
+                owl:propertyDisjointWith :needTestToEnter .
 
-###  http://pandemmy.org/Destination
-:Destination rdf:type owl:ObjectProperty ;
+
+###  http://pandemmy.org/dataProvidedBy
+:dataProvidedBy rdf:type owl:ObjectProperty ;
+                rdfs:subPropertyOf prov:wasAttributedTo ;
+                rdf:type owl:AsymmetricProperty ,
+                         owl:IrreflexiveProperty ;
+                rdfs:domain :PandemicReading ;
+                rdfs:range :DataOrganization .
+
+
+###  http://pandemmy.org/destination
+:destination rdf:type owl:ObjectProperty ;
              rdfs:subPropertyOf owl:topObjectProperty ;
              rdf:type owl:FunctionalProperty ,
                       owl:AsymmetricProperty ,
@@ -43,16 +54,18 @@
              rdfs:domain :Connection ;
              rdfs:range dbo:city .
 
-###  http://pandemmy.org/HasSpecificTravellingAdvice
-:HasSpecificTravellingAdvice rdf:type owl:ObjectProperty ;
+
+###  http://pandemmy.org/hasSpecificTravellingAdvice
+:hasSpecificTravellingAdvice rdf:type owl:ObjectProperty ;
                              rdfs:subPropertyOf owl:topObjectProperty ;
                              rdf:type owl:AsymmetricProperty ,
                                       owl:IrreflexiveProperty ;
                              rdfs:domain dbo:country ;
                              rdfs:range :SpecificTravellingAdvice .
 
-###  http://pandemmy.org/LivesIn
-:LivesIn rdf:type owl:ObjectProperty ;
+
+###  http://pandemmy.org/livesIn
+:livesIn rdf:type owl:ObjectProperty ;
          rdfs:subPropertyOf owl:topObjectProperty ;
          rdf:type owl:FunctionalProperty ,
                   owl:AsymmetricProperty ,
@@ -60,144 +73,164 @@
          rdfs:domain foaf:Person ;
          rdfs:range dbo:country .
 
-###  http://pandemmy.org/NeedTestToEnter
-:NeedTestToEnter rdf:type owl:ObjectProperty ;
+
+###  http://pandemmy.org/needTestToEnter
+:needTestToEnter rdf:type owl:ObjectProperty ;
                  rdfs:subPropertyOf owl:topObjectProperty ;
                  rdf:type owl:AsymmetricProperty ,
                           owl:IrreflexiveProperty ;
                  rdfs:domain dbo:country ;
                  rdfs:range dbo:country .
 
-###  http://pandemmy.org/NeedsVisaFor
-:NeedsVisaFor rdf:type owl:ObjectProperty ;
+
+###  http://pandemmy.org/needsVisaFor
+:needsVisaFor rdf:type owl:ObjectProperty ;
               rdfs:subPropertyOf owl:topObjectProperty ;
               rdf:type owl:AsymmetricProperty ,
                        owl:IrreflexiveProperty ;
               rdfs:domain dbo:country ;
               rdfs:range dbo:country .
 
-###  http://pandemmy.org/OrganizedBy
-:OrganizedBy rdf:type owl:ObjectProperty ;
+
+###  http://pandemmy.org/organizedBy
+:organizedBy rdf:type owl:ObjectProperty ;
              rdfs:subPropertyOf owl:topObjectProperty ;
              rdf:type owl:AsymmetricProperty ,
                       owl:IrreflexiveProperty ;
              rdfs:domain :Connection ;
              rdfs:range :TravellingOrganization .
 
-###  http://pandemmy.org/OutgoingConnection
-:OutgoingConnection rdf:type owl:ObjectProperty ;
+
+###  http://pandemmy.org/outgoingConnection
+:outgoingConnection rdf:type owl:ObjectProperty ;
                     rdfs:subPropertyOf owl:topObjectProperty ;
                     rdf:type owl:AsymmetricProperty ,
                              owl:IrreflexiveProperty ;
                     rdfs:domain dbo:city ;
                     rdfs:range :Connection .
 
-###  http://pandemmy.org/Reading
-:Reading rdf:type owl:ObjectProperty ;
+
+###  http://pandemmy.org/reading
+:reading rdf:type owl:ObjectProperty ;
          rdfs:subPropertyOf owl:topObjectProperty ;
          rdf:type owl:AsymmetricProperty ,
                   owl:IrreflexiveProperty ;
          rdfs:domain dbo:city ;
          rdfs:range :PandemicReading .
 
-###  http://pandemmy.org/DataProvidedBy
-:DataProvidedBy rdf:type owl:ObjectProperty ;
-           rdfs:subPropertyOf prov:wasAttributedTo ;
-           rdf:type owl:AsymmetricProperty ,
-                    owl:IrreflexiveProperty ;
-           rdfs:domain :PandemicReading ;
-           rdfs:range :DataOrganization .
+
+###  http://www.w3.org/ns/prov#wasAttributedTo
+prov:wasAttributedTo rdf:type owl:ObjectProperty .
 
 
 #################################################################
 #    Data properties
 #################################################################
 
-###  http://pandemmy.org/Advice
-:Advice rdf:type owl:DatatypeProperty ;
+###  http://pandemmy.org/advice
+:advice rdf:type owl:DatatypeProperty ;
+        rdfs:subPropertyOf owl:topDataProperty ;
         rdfs:domain :SpecificTravellingAdvice ;
         rdfs:range xsd:string .
 
-###  http://pandemmy.org/Duration
-:Duration rdf:type owl:DatatypeProperty ;
+
+###  http://pandemmy.org/cured
+:cured rdf:type owl:DatatypeProperty ;
+       rdfs:subPropertyOf owl:topDataProperty ;
+       rdf:type owl:FunctionalProperty ;
+       rdfs:domain dbo:Place ;
+       rdfs:range xsd:int .
+
+
+###  http://pandemmy.org/deaths
+:deaths rdf:type owl:DatatypeProperty ;
+        rdfs:subPropertyOf owl:topDataProperty ;
+        rdf:type owl:FunctionalProperty ;
+        rdfs:domain dbo:Place ;
+        rdfs:range xsd:int .
+
+
+###  http://pandemmy.org/derivedReproductionNumber
+:derivedReproductionNumber rdf:type owl:DatatypeProperty ;
+                           rdfs:subPropertyOf owl:topDataProperty ;
+                           rdf:type owl:FunctionalProperty ;
+                           rdfs:domain dbo:Place ;
+                           rdfs:range owl:rational .
+
+
+###  http://pandemmy.org/duration
+:duration rdf:type owl:DatatypeProperty ;
           rdfs:subPropertyOf owl:topDataProperty ;
           rdf:type owl:FunctionalProperty ;
           rdfs:domain :Connection ;
           rdfs:range xsd:long .
 
-###  http://pandemmy.org/GeneralTravellingAdvice
-:GeneralTravellingAdvice rdf:type owl:DatatypeProperty ;
+
+###  http://pandemmy.org/generalTravellingAdvice
+:generalTravellingAdvice rdf:type owl:DatatypeProperty ;
                          rdfs:subPropertyOf owl:topDataProperty ;
                          rdfs:domain dbo:country ;
                          rdfs:range xsd:string .
 
-###  http://pandemmy.org/NewDeaths
-:NewDeaths rdf:type owl:DatatypeProperty ,
+
+###  http://pandemmy.org/infected
+:infected rdf:type owl:DatatypeProperty ;
+          rdfs:subPropertyOf owl:topDataProperty ;
+          rdf:type owl:FunctionalProperty ;
+          rdfs:domain dbo:Place ;
+          rdfs:range xsd:int .
+
+
+###  http://pandemmy.org/newCured
+:newCured rdf:type owl:DatatypeProperty ;
+          rdfs:subPropertyOf owl:topDataProperty ;
+          rdf:type owl:FunctionalProperty ;
+          rdfs:domain :PandemicReading ;
+          rdfs:range xsd:int .
+
+
+###  http://pandemmy.org/newDeaths
+:newDeaths rdf:type owl:DatatypeProperty ,
                     owl:FunctionalProperty ;
            rdfs:domain :PandemicReading ;
            rdfs:range xsd:int .
 
-###  http://pandemmy.org/NewInfected
-:NewInfected rdf:type owl:DatatypeProperty ,
-                      owl:FunctionalProperty ;
+
+###  http://pandemmy.org/newInfected
+:newInfected rdf:type owl:DatatypeProperty ;
+             rdfs:subPropertyOf owl:topDataProperty ;
+             rdf:type owl:FunctionalProperty ;
              rdfs:domain :PandemicReading ;
              rdfs:range xsd:int .
 
-###  http://pandemmy.org/NewCured
-:NewCured rdf:type owl:DatatypeProperty ,
-                      owl:FunctionalProperty ;
-             rdfs:domain :PandemicReading ;
-             rdfs:range xsd:int .
 
-###  http://pandemmy.org/Deaths
-:Deaths rdf:type owl:DatatypeProperty ,
-                         owl:FunctionalProperty ;
-                rdfs:domain dbo:Place ;
-                rdfs:range xsd:int .
+###  http://pandemmy.org/observedReproductionNumber
+:observedReproductionNumber rdf:type owl:DatatypeProperty ,
+                                     owl:FunctionalProperty ;
+                            rdfs:domain :PandemicReading ;
+                            rdfs:range owl:rational .
 
-###  http://pandemmy.org/Infected
-:Infected rdf:type owl:DatatypeProperty ,
-                           owl:FunctionalProperty ;
-                  rdfs:domain dbo:Place ;
-                  rdfs:range xsd:int .
 
-###  http://pandemmy.org/TotalInfected
-:TotalInfected rdf:type owl:DatatypeProperty ,
-                           owl:FunctionalProperty ;
-                  rdfs:domain dbo:Place ;
-                  rdfs:range xsd:int .
-
-###  http://pandemmy.org/Cured
-:Cured rdf:type owl:DatatypeProperty ,
-                           owl:FunctionalProperty ;
-                  rdfs:domain dbo:Place ;
-                  rdfs:range xsd:int .
-
-###  http://pandemmy.org/Price
-:Price rdf:type owl:DatatypeProperty ;
+###  http://pandemmy.org/price
+:price rdf:type owl:DatatypeProperty ;
        rdfs:subPropertyOf owl:topDataProperty ;
        rdf:type owl:FunctionalProperty ;
        rdfs:domain :Connection ;
        rdfs:range owl:real .
 
-###  http://pandemmy.org/ReadingReproductionNumber
-:ReadingReproductionNumber rdf:type owl:DatatypeProperty ,
-                                    owl:FunctionalProperty ;
-                           rdfs:domain :PandemicReading ;
-                           rdfs:range owl:rational .
 
-###  http://pandemmy.org/ReproductionNumber
-:ReproductionNumber rdf:type owl:DatatypeProperty ;
-                    rdfs:subPropertyOf owl:topDataProperty ;
-                    rdf:type owl:FunctionalProperty ;
-                    rdfs:domain dbo:Place ;
-                    rdfs:range owl:rational .
-
-###  http://pandemmy.org/Restriction
-:Restriction rdf:type owl:DatatypeProperty ;
+###  http://pandemmy.org/restriction
+:restriction rdf:type owl:DatatypeProperty ;
              rdfs:subPropertyOf owl:topDataProperty ;
              rdfs:domain dbo:Place ;
              rdfs:range xsd:string .
+
+
+###  http://pandemmy.org/totalInfected
+:totalInfected rdf:type owl:DatatypeProperty ,
+                        owl:FunctionalProperty ;
+               rdfs:domain dbo:Place ;
+               rdfs:range xsd:int .
 
 
 #################################################################
@@ -208,58 +241,88 @@
 dbo:Continent rdf:type owl:Class ;
               rdfs:subClassOf dbo:Place .
 
+
+###  http://dbpedia.org/ontology/Place
+dbo:Place rdf:type owl:Class .
+
+
+###  http://dbpedia.org/ontology/city
+dbo:city rdf:type owl:Class ;
+         rdfs:subClassOf dbo:Place .
+
+
 ###  http://dbpedia.org/ontology/country
 dbo:country rdf:type owl:Class ;
             rdfs:subClassOf dbo:Place .
+
 
 ###  http://dbpedia.org/ontology/region
 dbo:region rdf:type owl:Class ;
            rdfs:subClassOf dbo:Place .
 
-###  http://dbpedia.org/ontology/city
-dbo:city rdf:type owl:Class ;
-              rdfs:subClassOf dbo:Place .
 
 ###  http://pandemmy.org/AirplaneConnection
 :AirplaneConnection rdf:type owl:Class ;
                     rdfs:subClassOf :Connection .
 
+
 ###  http://pandemmy.org/BusConnection
 :BusConnection rdf:type owl:Class ;
                rdfs:subClassOf :Connection .
+
 
 ###  http://pandemmy.org/Connection
 :Connection rdf:type owl:Class ;
             rdfs:subClassOf owl:Thing .
 
-###  http://pandemmy.org/PandemicReading
-:PandemicReading rdf:type owl:Class ;
-               rdfs:subClassOf prov:Entity .
 
 ###  http://pandemmy.org/DataOrganization
 :DataOrganization rdf:type owl:Class ;
                   rdfs:subClassOf foaf:Organization .
 
+
+###  http://pandemmy.org/PandemicReading
+:PandemicReading rdf:type owl:Class ;
+                 rdfs:subClassOf prov:Entity .
+
+
 ###  http://pandemmy.org/SpecificTravellingAdvice
 :SpecificTravellingAdvice rdf:type owl:Class ;
                           rdfs:subClassOf owl:Thing .
+
 
 ###  http://pandemmy.org/TrainConnection
 :TrainConnection rdf:type owl:Class ;
                  rdfs:subClassOf :Connection .
 
+
 ###  http://pandemmy.org/TravellingOrganization
 :TravellingOrganization rdf:type owl:Class ;
                         rdfs:subClassOf foaf:Organization .
+
 
 ###  http://www.w3.org/ns/prov#Agent
 prov:Agent rdf:type owl:Class ;
            owl:equivalentClass foaf:Agent .
 
+
+###  http://www.w3.org/ns/prov#Entity
+prov:Entity rdf:type owl:Class .
+
+
+###  http://xmlns.com/foaf/0.1/Agent
+foaf:Agent rdf:type owl:Class .
+
+
 ###  http://xmlns.com/foaf/0.1/Organization
 foaf:Organization rdf:type owl:Class ;
                   rdfs:subClassOf foaf:Agent ;
                   owl:disjointWith foaf:Person .
+
+
+###  http://xmlns.com/foaf/0.1/Person
+foaf:Person rdf:type owl:Class .
+
 
 #################################################################
 #    General axioms
@@ -271,5 +334,6 @@ foaf:Organization rdf:type owl:Class ;
                 :TrainConnection
               )
 ] .
+
 
 ###  Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi
