@@ -11,7 +11,7 @@ COPY h2.sh .
 EXPOSE 8082
 
 # H2 version
-ENV H2_VERSION "1.4.197"
+ENV H2_VERSION "1.4.200"
 
 # Download
 ADD "https://repo1.maven.org/maven2/com/h2database/h2/${H2_VERSION}/h2-${H2_VERSION}.jar" h2.jar

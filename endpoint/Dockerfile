@@ -11,7 +11,7 @@ COPY ./ontology/ontology.owl ./ontology/ontology.obda ./ontology/ontology.proper
 EXPOSE 8080
 
 # H2 version
-ENV H2_VERSION "1.4.197"
+ENV H2_VERSION "1.4.200"
 
 # Download
 ADD "https://repo1.maven.org/maven2/com/h2database/h2/${H2_VERSION}/h2-${H2_VERSION}.jar" jdbc/h2.jar
