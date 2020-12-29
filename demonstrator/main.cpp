@@ -22,6 +22,12 @@ int main(int argc, char* argv[]) {
 
     printer.printIntro();
 
+    // Do a test query to see if the endpoint is available
+    if(query.doQuery(query.testQuery) == ""){
+        printer.printNonAvailable();
+        exit(0);
+    }
+
     // Start main loop
     while(true) {
         

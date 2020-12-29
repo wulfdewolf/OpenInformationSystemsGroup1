@@ -64,6 +64,11 @@ class Query {
     "?cr %s ?toCount ."  
     "} GROUP BY ?name ORDER BY desc(?total)";
 
+    const char* testQuery = 
+    "PREFIX : <http://pandemmy.org/>\n"
+    "SELECT ?test WHERE {\n"
+    "?test a :TrainConnection\n}";
+
     string doQuery(string request);
 };
 

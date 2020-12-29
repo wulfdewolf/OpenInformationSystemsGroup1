@@ -14,6 +14,9 @@ class Printer {
 
     public: 
 
+    // Prints non-availiability message
+    void printNonAvailable();
+
     // Prints intro
     void printIntro();
 

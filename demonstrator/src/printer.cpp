@@ -5,6 +5,12 @@
 */
 #include "../include/printer.h"
 
+void Printer::printNonAvailable() {
+    printSeparator();
+    cout << "Please boot the database and SPARQL endpoint docker first! (more info in README)" << endl;
+    printSeparator();
+}
+
 void Printer::printIntro() {
     cout << "|"  << string(60, '*') << "|" << endl;
     cout << "|"  << string(60, ' ') << "|" << endl;
