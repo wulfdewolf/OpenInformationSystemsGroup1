@@ -57,7 +57,7 @@ localhost:8082
 ```
 To get access to the provided database fill in the following as jdbc url: 
 ```
-jdbc\:h2\:tcp\://localhost:9082/data
+jdbc:h2:tcp://localhost:9082/data
 ```
 
 #### SPARQL endpoint
